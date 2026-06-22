@@ -161,6 +161,7 @@ class FantasyTeam(db.Model):
     name = db.Column(db.String(100), nullable=False)
     wins = db.Column(db.Integer, default=0)
     losses = db.Column(db.Integer, default=0)
+    draws = db.Column(db.Integer, default=0)
     points_for = db.Column(db.Float, default=0.0)
     points_against = db.Column(db.Float, default=0.0)
     draft_position = db.Column(db.Integer, nullable=True)  # 1-10, set when draft opens

@@ -323,7 +323,7 @@ def simulate_week(state: LeagueState) -> dict:
             at.points_for    += away_pts;  at.points_against += home_pts
             if home_pts > away_pts:  ht.wins  += 1; at.losses += 1
             elif away_pts > home_pts: at.wins  += 1; ht.losses += 1
-            else:                    ht.wins  += 1; at.wins   += 1  # tie = both win (rare)
+            else:                    ht.draws += 1; at.draws  += 1
 
             fantasy_results.append({
                 'home': ht.name, 'home_score': home_pts,

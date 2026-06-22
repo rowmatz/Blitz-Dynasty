@@ -137,7 +137,11 @@ def get_drafted_ids(draft):
 
 
 def best_available(draft, fantasy_team_id):
-    """Pick the highest skill_bonus player at a position the team still needs."""
+    """Pick the highest skill_bonus player at a position the team still needs.
+
+    Targets account for FLEX (RB/WR/TE) and SUPERFLEX (QB/RB/WR/TE) slots so
+    auto-picks don't over-stack one position in early rounds.
+    """
     drafted = get_drafted_ids(draft)
     my_picks = [p for p in draft.picks if p.fantasy_team_id == fantasy_team_id]
     pos_counts = {}
@@ -145,15 +149,18 @@ def best_available(draft, fantasy_team_id):
         pos = p.player.position
         pos_counts[pos] = pos_counts.get(pos, 0) + 1
 
-    # Target counts for a 17-round draft
+    # Roster targets: QB×3, RB×5, WR×6, TE×3 covers all 17 slots including
+    # FLEX (RB/WR/TE) and SUPERFLEX (QB/RB/WR/TE).
     targets = {'QB': 3, 'RB': 5, 'WR': 6, 'TE': 3}
     needed = [pos for pos, target in targets.items() if pos_counts.get(pos, 0) < target]
 
     available = Player.query.filter(
         Player.position != 'DEF',
         Player.status == 'active',
-        ~Player.id.in_(drafted) if drafted else True,
-    ).order_by(Player.skill_bonus.desc())
+    )
+    if drafted:
+        available = available.filter(~Player.id.in_(drafted))
+    available = available.order_by(Player.skill_bonus.desc())
 
     if needed:
         pick = available.filter(Player.position.in_(needed)).first()
@@ -466,21 +473,43 @@ def commissioner_sim():
 @app.route('/results')
 @login_required
 def results():
+    from models import NflGame, NflSchedule
     state  = LeagueState.query.first()
     week   = request.args.get('week', state.week - 1, type=int)
     year   = state.season_year
-    from models import NflGame, NflSchedule, PlayerGameStat
-    games  = (NflSchedule.query
-              .filter_by(week=week, season_year=year, simulated=True)
-              .join(NflGame, NflGame.nfl_schedule_id == NflSchedule.id)
-              .all())
-    fantasy = (FantasySchedule.query
-               .filter_by(week=week, season_year=year)
-               .all())
-    return render_template('results.html',
-                           result={'week_simmed': week, 'nfl_games': len(games),
-                                   'nfl_results': [], 'fantasy_results': []},
-                           games=games, fantasy=fantasy, state=state, week=week)
+
+    nfl_scheds = (NflSchedule.query
+                  .filter_by(week=week, season_year=year, simulated=True)
+                  .join(NflGame, NflGame.nfl_schedule_id == NflSchedule.id)
+                  .all())
+    nfl_results = [{
+        'home': s.home_team.abbr, 'home_score': s.game.home_score,
+        'away': s.away_team.abbr, 'away_score': s.game.away_score,
+    } for s in nfl_scheds]
+
+    fantasy_scheds = (FantasySchedule.query
+                      .filter_by(week=week, season_year=year)
+                      .all())
+    fantasy_results = []
+    for fs in fantasy_scheds:
+        if not fs.result:
+            continue
+        ht = fs.home_team
+        at = fs.away_team
+        winner_id = fs.result.winner_id
+        fantasy_results.append({
+            'home': ht.name, 'home_score': fs.result.home_score,
+            'away': at.name, 'away_score': fs.result.away_score,
+            'winner': ht.name if winner_id == ht.id else at.name,
+        })
+
+    result = {
+        'week_simmed': week,
+        'nfl_games': len(nfl_results),
+        'nfl_results': nfl_results,
+        'fantasy_results': fantasy_results,
+    }
+    return render_template('results.html', result=result, state=state, week=week)
 
 
 # ==============================================================================
