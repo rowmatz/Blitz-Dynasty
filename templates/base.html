@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{% block title %}Blitz Dynasty{% endblock %}</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <style>
+    body { background: #0f0f0f; color: #e0e0e0; }
+    .navbar { background: #1a1a2e !important; border-bottom: 2px solid #e94560; }
+    .navbar-brand { color: #e94560 !important; font-weight: 700; font-size: 1.4rem; letter-spacing: 1px; }
+    .nav-link { color: #aaa !important; }
+    .nav-link:hover, .nav-link.active { color: #e94560 !important; }
+    .card { background: #1a1a2e; border: 1px solid #2a2a4a; }
+    .card-header { background: #16213e; border-bottom: 1px solid #2a2a4a; }
+    .btn-primary { background: #e94560; border-color: #e94560; }
+    .btn-primary:hover { background: #c73652; border-color: #c73652; }
+    .badge-position { font-size: 0.7rem; padding: 2px 6px; border-radius: 3px; }
+    .badge-QB { background: #e94560; }
+    .badge-RB { background: #2e7d32; }
+    .badge-WR { background: #1565c0; }
+    .badge-TE { background: #6a1b9a; }
+    .text-muted { color: #888 !important; }
+    .table { color: #e0e0e0; }
+    .table-dark { --bs-table-bg: #16213e; }
+    .alert-danger { background: #3b1a1a; border-color: #e94560; color: #f5a0a0; }
+    .alert-success { background: #1a3b1a; border-color: #2e7d32; color: #a0f5a0; }
+    .alert-info { background: #1a2a3b; border-color: #1565c0; color: #a0c8f5; }
+    .form-control, .form-select {
+      background: #0f0f0f; border-color: #2a2a4a; color: #e0e0e0;
+    }
+    .form-control:focus, .form-select:focus {
+      background: #0f0f0f; border-color: #e94560; color: #e0e0e0;
+      box-shadow: 0 0 0 0.2rem rgba(233,69,96,0.25);
+    }
+  </style>
+  {% block head %}{% endblock %}
+</head>
+<body>
+
+{% if current_user.is_authenticated %}
+<nav class="navbar navbar-expand-lg">
+  <div class="container">
+    <a class="navbar-brand" href="{{ url_for('index') }}">⚡ BLITZ DYNASTY</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#nav">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="nav">
+      <ul class="navbar-nav me-auto">
+        <li class="nav-item"><a class="nav-link" href="{{ url_for('my_team') }}">My Team</a></li>
+        <li class="nav-item"><a class="nav-link" href="{{ url_for('league') }}">League</a></li>
+        <li class="nav-item"><a class="nav-link" href="{{ url_for('nfl_standings') }}">NFL</a></li>
+        <li class="nav-item"><a class="nav-link" href="{{ url_for('players') }}">Players</a></li>
+        <li class="nav-item"><a class="nav-link" href="{{ url_for('waiver') }}">Waiver</a></li>
+        <li class="nav-item"><a class="nav-link" href="{{ url_for('trades') }}">Trades</a></li>
+        {% if current_user.is_commissioner %}
+        <li class="nav-item"><a class="nav-link text-warning" href="{{ url_for('commissioner') }}">⚙ Commissioner</a></li>
+        {% endif %}
+      </ul>
+      <ul class="navbar-nav">
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown">
+            {{ current_user.username }}
+          </a>
+          <ul class="dropdown-menu dropdown-menu-dark dropdown-menu-end">
+            <li><a class="dropdown-item" href="{{ url_for('logout') }}">Log out</a></li>
+          </ul>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>
+{% endif %}
+
+<div class="container py-4">
+  {% with messages = get_flashed_messages() %}
+    {% if messages %}
+      {% for msg in messages %}
+        <div class="alert alert-info alert-dismissible fade show" role="alert">
+          {{ msg }}
+          <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+        </div>
+      {% endfor %}
+    {% endif %}
+  {% endwith %}
+
+  {% block content %}{% endblock %}
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+{% block scripts %}{% endblock %}
+</body>
+</html>

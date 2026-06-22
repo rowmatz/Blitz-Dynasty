@@ -1,0 +1,97 @@
+{% extends 'base.html' %}
+{% block title %}Players — Blitz Dynasty{% endblock %}
+
+{% block head %}
+<style>
+.badge-pos{display:inline-block;padding:2px 7px;border-radius:3px;
+           font-size:.72rem;font-weight:700;min-width:32px;text-align:center;}
+.pos-QB{background:#e94560;}.pos-RB{background:#2e7d32;}
+.pos-WR{background:#1565c0;}.pos-TE{background:#6a1b9a;}
+.pot-A{color:#ffd700;font-weight:700;}.pot-B{color:#a0f5a0;}
+.pot-C{color:#aaa;}.pot-D{color:#666;}
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="d-flex align-items-center justify-content-between mb-3">
+  <h2>Players</h2>
+  <span class="text-muted small">{{ players|length }} results</span>
+</div>
+
+<div class="card mb-3">
+  <div class="card-body py-2">
+    <form method="GET" action="{{ url_for('players') }}" class="row g-2 align-items-center">
+      <div class="col-auto">
+        <select name="pos" class="form-select form-select-sm" style="width:80px;">
+          <option value="" {% if not pos_filter %}selected{% endif %}>All</option>
+          {% for pos in ['QB','RB','WR','TE'] %}
+          <option value="{{ pos }}" {% if pos_filter == pos %}selected{% endif %}>{{ pos }}</option>
+          {% endfor %}
+        </select>
+      </div>
+      <div class="col-auto">
+        <select name="team" class="form-select form-select-sm" style="width:180px;">
+          <option value="">All NFL Teams</option>
+          {% for t in nfl_teams %}
+          <option value="{{ t.id }}" {% if team_filter == t.id %}selected{% endif %}>{{ t.name }}</option>
+          {% endfor %}
+        </select>
+      </div>
+      <div class="col">
+        <input type="text" name="q" class="form-control form-control-sm"
+               placeholder="Search name…" value="{{ search }}">
+      </div>
+      <div class="col-auto">
+        <button type="submit" class="btn btn-sm btn-primary">Search</button>
+        <a href="{{ url_for('players') }}" class="btn btn-sm btn-outline-secondary ms-1">Clear</a>
+      </div>
+    </form>
+  </div>
+</div>
+
+<div class="card">
+  <div style="max-height:700px;overflow-y:auto;">
+    <table class="table table-dark table-sm mb-0">
+      <thead style="position:sticky;top:0;background:#16213e;z-index:1;">
+        <tr>
+          <th style="width:40px;"></th>
+          <th>Player</th>
+          <th style="width:120px;">Archetype</th>
+          <th style="width:44px;" class="text-center">Age</th>
+          <th style="width:34px;" class="text-center">Pot</th>
+          <th style="width:80px;" class="text-end">Szn Pts</th>
+          <th style="width:65px;" class="text-end">Avg</th>
+          <th style="width:150px;">Fantasy Team</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for p in players %}
+        <tr>
+          <td><span class="badge-pos pos-{{ p.position }}">{{ p.position }}</span></td>
+          <td>
+            <strong>{{ p.name }}</strong>
+            <div style="font-size:.7rem;color:#666;">{{ p.nfl_team.name if p.nfl_team else 'FA' }}</div>
+          </td>
+          <td style="font-size:.75rem;color:#aaa;">{{ p.archetype }}</td>
+          <td class="text-center" style="color:#aaa;">{{ p.age }}</td>
+          <td class="text-center pot-{{ p.potential }}">{{ p.potential }}</td>
+          <td class="text-end">{{ "%.1f"|format(p.season_pts) }}</td>
+          <td class="text-end text-muted" style="font-size:.8rem;">
+            {{ "%.1f"|format(p.season_pts / p.games_played) if p.games_played else '—' }}
+          </td>
+          <td style="font-size:.78rem;">
+            {% if p.id in roster_map %}
+              <span style="color:#a0c8f5;">{{ roster_map[p.id] }}</span>
+            {% else %}
+              <span style="color:#555;">Free Agent</span>
+            {% endif %}
+          </td>
+        </tr>
+        {% else %}
+        <tr><td colspan="8" class="text-center text-muted py-4">No players found.</td></tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+</div>
+{% endblock %}

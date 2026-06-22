@@ -1,0 +1,25 @@
+<div class="d-flex justify-content-between align-items-start mb-1 border-bottom pb-1">
+    <div class="fw-bold text-truncate" style="max-width: 100px;">{{ p.name }}</div>
+    <div class="text-end text-muted">
+        {% if p.pass_yds > 0 %}
+            <div>{{ p.pass_yds }} Yds / {{ p.pass_td }} TD</div>
+        {% endif %}
+        
+        {% if p.rush_yds > 0 %}
+            <div>{{ p.rush_yds }} Rush / {{ p.rush_td }} TD</div>
+        {% endif %}
+        
+       {% if p.targets > 0 %}
+            <div>
+                {{ p.rec }}/{{ p.targets }} Rec, {{ p.rec_yds }} Yds
+                {% if p.rec_td > 0 %}
+                    , <span class="text-success fw-bold">{{ p.rec_td }} TD</span>
+                {% endif %}
+            </div>
+        {% endif %}
+        
+        {% if p.int and p.int > 0 %}
+            <div class="text-danger fw-bold">{{ p.int }} INT</div>
+        {% endif %}
+    </div>
+</div>

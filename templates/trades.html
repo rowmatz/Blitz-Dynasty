@@ -1,0 +1,278 @@
+{% extends 'base.html' %}
+{% block title %}Trades — Blitz Dynasty{% endblock %}
+
+{% block head %}
+<style>
+.badge-pos{display:inline-block;padding:2px 7px;border-radius:3px;
+           font-size:.72rem;font-weight:700;min-width:32px;text-align:center;}
+.pos-QB{background:#e94560;}.pos-RB{background:#2e7d32;}
+.pos-WR{background:#1565c0;}.pos-TE{background:#6a1b9a;}
+.player-check { cursor:pointer; }
+.player-check:hover { background:#16213e !important; }
+.player-check.giving   { background:#3b1a1a !important; }
+.player-check.receiving{ background:#1a2a3b !important; }
+.trade-panel { background:#16213e; border-radius:8px; border:1px solid #2a2a4a; padding:16px; }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="d-flex align-items-center justify-content-between mb-3">
+  <h2>Trade Hub</h2>
+  <a href="{{ url_for('my_team') }}" class="btn btn-sm btn-outline-secondary">← My Team</a>
+</div>
+
+<!-- INCOMING TRADES -->
+{% if incoming %}
+<div class="card mb-4" style="border-color:#e97e56;">
+  <div class="card-header" style="color:#e97e56;"><strong>Incoming Trade Offers</strong></div>
+  <div class="card-body">
+    {% for t in incoming %}
+    <div class="trade-panel mb-3" id="trade-{{ t.id }}">
+      <div class="d-flex justify-content-between align-items-start mb-2">
+        <span style="font-size:.85rem;color:#888;">From <strong style="color:#e0e0e0;">{{ t.proposing_team.name }}</strong></span>
+        <div class="d-flex gap-2">
+          <button class="btn btn-sm btn-primary respond-btn"
+                  data-id="{{ t.id }}" data-action="accept">Accept</button>
+          <button class="btn btn-sm btn-outline-secondary respond-btn"
+                  data-id="{{ t.id }}" data-action="reject">Reject</button>
+        </div>
+      </div>
+      <div class="row g-2">
+        <div class="col-6">
+          <div style="font-size:.75rem;color:#888;margin-bottom:4px;">YOU RECEIVE</div>
+          {% for tp in t.players if tp.direction == 'to_proposer' %}
+            <div style="font-size:.88rem;">
+              <span class="badge-pos pos-{{ tp.player.position }}">{{ tp.player.position }}</span>
+              {{ tp.player.name }}
+            </div>
+          {% endfor %}
+        </div>
+        <div class="col-6">
+          <div style="font-size:.75rem;color:#888;margin-bottom:4px;">YOU SEND</div>
+          {% for tp in t.players if tp.direction == 'to_receiver' %}
+            <div style="font-size:.88rem;">
+              <span class="badge-pos pos-{{ tp.player.position }}">{{ tp.player.position }}</span>
+              {{ tp.player.name }}
+            </div>
+          {% endfor %}
+        </div>
+      </div>
+    </div>
+    {% endfor %}
+  </div>
+</div>
+{% endif %}
+
+<!-- PROPOSE A TRADE -->
+<div class="row g-3">
+  <div class="col-lg-5">
+    <div class="card">
+      <div class="card-header"><strong>Propose a Trade</strong></div>
+      <div class="card-body">
+        <div class="mb-3">
+          <label class="form-label small text-muted">Trade with:</label>
+          <select id="target-team" class="form-select">
+            <option value="">— select a team —</option>
+            {% for t in all_teams %}
+            <option value="{{ t.id }}">{{ t.name }}</option>
+            {% endfor %}
+          </select>
+        </div>
+        <div class="mb-2 small text-muted">Players I'm sending (click to select):</div>
+        <div id="my-players" style="max-height:220px;overflow-y:auto;margin-bottom:12px;">
+          {% for p in my_roster | sort(attribute='position') %}
+          <div class="player-check d-flex align-items-center gap-2 px-2 py-1 rounded"
+               data-id="{{ p.id }}" data-name="{{ p.name }}" data-dir="giving">
+            <span class="badge-pos pos-{{ p.position }}">{{ p.position }}</span>
+            <span style="font-size:.85rem;">{{ p.name }}</span>
+            <span style="font-size:.75rem;color:#666;margin-left:auto;">{{ "%.1f"|format(p.season_pts) }}pts</span>
+          </div>
+          {% endfor %}
+        </div>
+
+        <div class="mb-2 small text-muted" id="their-label" style="display:none;">
+          Players I'm requesting (click to select):
+        </div>
+        <div id="their-players" style="max-height:220px;overflow-y:auto;margin-bottom:12px;"></div>
+
+        <div id="trade-summary" style="display:none;" class="mb-3">
+          <div style="background:#0f0f0f;border-radius:6px;padding:10px;font-size:.83rem;">
+            <div style="color:#888;margin-bottom:4px;">SENDING</div>
+            <div id="giving-summary" style="color:#e94560;margin-bottom:8px;"></div>
+            <div style="color:#888;margin-bottom:4px;">RECEIVING</div>
+            <div id="receiving-summary" style="color:#a0f5a0;"></div>
+          </div>
+        </div>
+
+        <button id="propose-btn" class="btn btn-primary w-100" disabled>
+          Propose Trade
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- OUTGOING -->
+  <div class="col-lg-7">
+    {% if outgoing %}
+    <div class="card">
+      <div class="card-header"><strong>Pending Outgoing Offers</strong></div>
+      <div class="card-body">
+        {% for t in outgoing %}
+        <div class="trade-panel mb-3">
+          <div style="font-size:.85rem;color:#888;margin-bottom:6px;">
+            To <strong style="color:#e0e0e0;">{{ t.receiving_team.name }}</strong>
+            <span class="badge bg-secondary ms-2">Pending</span>
+          </div>
+          <div class="row g-2">
+            <div class="col-6">
+              <div style="font-size:.75rem;color:#888;margin-bottom:4px;">YOU SEND</div>
+              {% for tp in t.players if tp.direction == 'to_receiver' %}
+              <div style="font-size:.88rem;">
+                <span class="badge-pos pos-{{ tp.player.position }}">{{ tp.player.position }}</span>
+                {{ tp.player.name }}
+              </div>
+              {% endfor %}
+            </div>
+            <div class="col-6">
+              <div style="font-size:.75rem;color:#888;margin-bottom:4px;">YOU RECEIVE</div>
+              {% for tp in t.players if tp.direction == 'to_proposer' %}
+              <div style="font-size:.88rem;">
+                <span class="badge-pos pos-{{ tp.player.position }}">{{ tp.player.position }}</span>
+                {{ tp.player.name }}
+              </div>
+              {% endfor %}
+            </div>
+          </div>
+        </div>
+        {% endfor %}
+      </div>
+    </div>
+    {% else %}
+    <div class="card">
+      <div class="card-body text-muted text-center py-4">
+        No pending outgoing offers.
+      </div>
+    </div>
+    {% endif %}
+  </div>
+</div>
+
+<div id="toast" style="display:none;position:fixed;bottom:24px;right:24px;
+     background:#1a3b1a;border:1px solid #2e7d32;border-radius:8px;
+     padding:12px 20px;color:#a0f5a0;font-weight:600;z-index:999;"></div>
+{% endblock %}
+
+{% block scripts %}
+<script>
+const givingIds    = new Set();
+const receivingIds = new Set();
+let targetTeamId   = null;
+
+// ── RESPOND TO INCOMING TRADES ─────────────────────────────────────────────
+document.querySelectorAll('.respond-btn').forEach(btn => {
+  btn.addEventListener('click', async () => {
+    const id = btn.dataset.id, action = btn.dataset.action;
+    if (action === 'accept' && !confirm('Accept this trade?')) return;
+    btn.disabled = true;
+    const r = await fetch(`/api/trade/${id}/respond`, {
+      method: 'POST',
+      headers: {'Content-Type': 'application/json'},
+      body: JSON.stringify({action}),
+    });
+    const data = await r.json();
+    if (r.ok) {
+      showToast(action === 'accept' ? 'Trade accepted!' : 'Trade rejected.');
+      setTimeout(() => location.reload(), 1200);
+    } else {
+      alert(data.error || 'Failed.'); btn.disabled = false;
+    }
+  });
+});
+
+// ── TARGET TEAM SELECTION ──────────────────────────────────────────────────
+document.getElementById('target-team').addEventListener('change', async function() {
+  targetTeamId = this.value ? parseInt(this.value) : null;
+  const container = document.getElementById('their-players');
+  const label = document.getElementById('their-label');
+  receivingIds.clear();
+
+  if (!targetTeamId) { container.innerHTML = ''; label.style.display='none'; updateSummary(); return; }
+  label.style.display = 'block';
+  container.innerHTML = '<div class="text-muted small p-2">Loading…</div>';
+
+  const r = await fetch(`/api/team/${targetTeamId}/roster`);
+  const players = await r.json();
+  container.innerHTML = players.map(p => `
+    <div class="player-check d-flex align-items-center gap-2 px-2 py-1 rounded"
+         data-id="${p.id}" data-name="${p.name}" data-dir="receiving">
+      <span class="badge-pos pos-${p.position}">${p.position}</span>
+      <span style="font-size:.85rem;">${p.name}</span>
+      <span style="font-size:.75rem;color:#666;margin-left:auto;">${p.season_pts.toFixed(1)}pts</span>
+    </div>`).join('');
+
+  container.querySelectorAll('.player-check').forEach(attachToggle);
+});
+
+// ── PLAYER TOGGLE ──────────────────────────────────────────────────────────
+function attachToggle(el) {
+  el.addEventListener('click', () => {
+    const id  = parseInt(el.dataset.id);
+    const dir = el.dataset.dir;
+    const set = dir === 'giving' ? givingIds : receivingIds;
+    const cls = dir === 'giving' ? 'giving'  : 'receiving';
+    if (set.has(id)) { set.delete(id); el.classList.remove(cls); }
+    else             { set.add(id);    el.classList.add(cls); }
+    updateSummary();
+  });
+}
+document.querySelectorAll('#my-players .player-check').forEach(attachToggle);
+
+// ── SUMMARY ────────────────────────────────────────────────────────────────
+function updateSummary() {
+  const ok = givingIds.size > 0 && receivingIds.size > 0 && targetTeamId;
+  document.getElementById('propose-btn').disabled = !ok;
+  const summary = document.getElementById('trade-summary');
+  if (!ok) { summary.style.display='none'; return; }
+  summary.style.display = 'block';
+
+  const names = (ids, container) => [...ids].map(id => {
+    const el = container.querySelector(`[data-id="${id}"]`);
+    return el ? el.dataset.name : id;
+  }).join(', ');
+
+  document.getElementById('giving-summary').textContent =
+    names(givingIds, document.getElementById('my-players'));
+  document.getElementById('receiving-summary').textContent =
+    names(receivingIds, document.getElementById('their-players'));
+}
+
+// ── PROPOSE ────────────────────────────────────────────────────────────────
+document.getElementById('propose-btn').addEventListener('click', async () => {
+  const btn = document.getElementById('propose-btn');
+  btn.disabled = true; btn.textContent = 'Sending…';
+  const r = await fetch('/api/trade/propose', {
+    method: 'POST',
+    headers: {'Content-Type': 'application/json'},
+    body: JSON.stringify({
+      target_team_id: targetTeamId,
+      giving:    [...givingIds],
+      receiving: [...receivingIds],
+    }),
+  });
+  const data = await r.json();
+  if (r.ok) {
+    showToast('Trade proposal sent!');
+    setTimeout(() => location.reload(), 1200);
+  } else {
+    alert(data.error || 'Failed to propose trade.');
+    btn.disabled = false; btn.textContent = 'Propose Trade';
+  }
+});
+
+function showToast(msg) {
+  const t = document.getElementById('toast');
+  t.textContent = msg; t.style.display = 'block';
+  setTimeout(() => t.style.display = 'none', 3000);
+}
+</script>
+{% endblock %}

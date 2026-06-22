@@ -1,0 +1,94 @@
+{% extends "base.html" %}
+{% block content %}
+
+<div class="row mb-4">
+    <div class="col-12 text-center">
+        <h1 class="display-6">📰 League Command Center</h1>
+    </div>
+</div>
+
+<div class="card shadow-sm">
+    <div class="card-header bg-dark">
+        <ul class="nav nav-tabs card-header-tabs" id="newsTabs" role="tablist">
+            <li class="nav-item">
+                <button class="nav-link active fw-bold" data-bs-toggle="tab" data-bs-target="#wire">
+                    📢 Transaction Wire
+                </button>
+            </li>
+            <li class="nav-item">
+                <button class="nav-link fw-bold" data-bs-toggle="tab" data-bs-target="#scout">
+                    🔭 Rookie Scouting
+                </button>
+            </li>
+        </ul>
+    </div>
+    
+    <div class="card-body">
+        <div class="tab-content">
+            
+            <div class="tab-pane fade show active" id="wire">
+                {% if transactions %}
+                    <div class="list-group list-group-flush" style="max-height: 600px; overflow-y: auto;">
+                        {% for t in transactions %}
+                            <div class="list-group-item">
+                                {% if "SIGNED" in t.Message %}
+                                    <span class="badge bg-success me-2">SIGNING</span>
+                                {% elif "RETIRED" in t.Message %}
+                                    <span class="badge bg-danger me-2">RETIRED</span>
+                                {% elif "ROOKIE" in t.Message %}
+                                    <span class="badge bg-info text-dark me-2">DRAFT</span>
+                                {% else %}
+                                    <span class="badge bg-secondary me-2">NEWS</span>
+                                {% endif %}
+                                {{ t.Message }}
+                            </div>
+                        {% endfor %}
+                    </div>
+                {% else %}
+                    <p class="text-muted text-center my-5">No news yet. Run an Offseason to generate headlines!</p>
+                {% endif %}
+            </div>
+
+            <div class="tab-pane fade" id="scout">
+                <div class="alert alert-info small">
+                    💡 <strong>Scouting Tip:</strong> Look for <strong>Rank A/B</strong> Potential. These are the future stars that teams haven't signed yet!
+                </div>
+                <table class="table table-hover table-sm">
+                    <thead class="table-light">
+                        <tr>
+                            <th>Pos</th>
+                            <th>Name</th>
+                            <th>Age</th>
+                            <th>Arch</th>
+                            <th>Potential</th>
+                            <th>Bonus</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for p in players %}
+                        <tr>
+                            <td class="pos-{{ p.Position }} fw-bold">{{ p.Position }}</td>
+                            <td><a href="/player/{{ p.Player_Name }}">{{ p.Player_Name }}</a></td>
+                            <td>{{ p.Age }}</td>
+                            <td><span class="badge bg-secondary archetype-badge">{{ p.Archetype }}</span></td>
+                            <td>
+                                {% if p.Potential == 'A' %} <span class="text-success fw-bold">A (Elite)</span>
+                                {% elif p.Potential == 'B' %} <span class="text-primary fw-bold">B (Star)</span>
+                                {% elif p.Potential == 'C' %} <span class="text-secondary">C (Avg)</span>
+                                {% else %} <span class="text-muted">D (Bust)</span>
+                                {% endif %}
+                            </td>
+                            <td>
+                                {% if p.Skill_Bonus > 0 %}<span class="text-success">+{{ (p.Skill_Bonus*100)|int }}%</span>{% endif %}
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+            
+        </div>
+    </div>
+</div>
+
+{% endblock %}

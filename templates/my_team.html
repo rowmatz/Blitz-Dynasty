@@ -1,0 +1,89 @@
+{% extends "base.html" %}
+{% block content %}
+
+<div class="row mb-4">
+    <div class="col-md-12">
+        <div class="card shadow-sm">
+            <div class="card-header bg-dark text-white d-flex justify-content-between align-items-center">
+                <span>📋 Team Needs</span>
+                <a href="/draft" class="btn btn-sm btn-success fw-bold">+ Draft Players</a>
+            </div>
+            <div class="card-body d-flex justify-content-around">
+                {% for n in needs %}
+                    <div class="text-center">
+                        <span class="d-block fw-bold pos-{{n.pos}}">{{ n.pos }}</span>
+                        {% if n.status == 'missing' %}
+                            <span class="badge bg-danger">{{ n.have }} / {{ n.need }}</span>
+                        {% else %}
+                            <span class="badge bg-success">Filled</span>
+                        {% endif %}
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+</div>
+
+<h3>My Squad</h3>
+<div class="card shadow-sm">
+    <table class="table table-striped mb-0 align-middle">
+        <thead class="table-secondary">
+            <tr>
+                <th>Action</th>
+                <th>Pos</th>
+                <th>Player</th>
+                <th>Team</th>
+                <th>Opponent</th> <th>Status</th>   <th>Total Pts</th>
+                <th>Avg</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for p in players %}
+            <tr class="{{ 'table-danger' if p.Status == 'RETIRED' else '' }}">
+                <td>
+                    <a href="/drop/{{ p.Player_Name }}" class="btn btn-sm btn-outline-danger" onclick="return confirm('Cut {{ p.Player_Name }}?')">Cut</a>
+                </td>
+                
+                <td>
+                    <span class="pos-{{ p.Position }} fw-bold">{{ p.Position }}</span>
+                    {% if p.Team_Name != 'FA' and p.Status == 'Active' and p.Position != 'DEF' %}
+                        <br>
+                        {% if p.Depth_Rank <= 2 %}
+                            <span class="badge bg-success" style="font-size: 0.7em;">#{{ p.Depth_Rank|int }}</span>
+                        {% elif p.Depth_Rank == 3 %}
+                            <span class="badge bg-warning text-dark" style="font-size: 0.7em;">#{{ p.Depth_Rank|int }}</span>
+                        {% else %}
+                            <span class="badge bg-danger" style="font-size: 0.7em;">#{{ p.Depth_Rank|int }}</span>
+                        {% endif %}
+                    {% endif %}
+                </td>
+                
+                <td class="fw-bold">
+                    <a href="/player/{{ p.Player_Name }}" class="text-decoration-none text-dark hover-primary">{{ p.Player_Name }}</a>
+                    {% if p.Status == 'RETIRED' %}<span class="badge bg-danger ms-2">RET</span>{% endif %}
+                </td>
+                <td>{{ p.Team_Name }}</td>
+                <td class="small">{{ p.Next_Opp }}</td>
+                <td>
+                    {% if p.Game_Status == 'Playing' %}
+                        <span class="badge bg-success">Playing</span>
+                    {% elif p.Game_Status == 'Out' %}
+                         {% if p.Team_Name == 'FA' %}
+                            <span class="badge bg-warning text-dark">FA</span>
+                         {% else %}
+                            <span class="badge bg-secondary">OUT</span>
+                         {% endif %}
+                    {% endif %}
+                </td>
+                <td class="fw-bold text-primary">{{ p.Season_Pts|round(1) }}</td>
+                <td><span class="badge bg-light text-dark border">{{ p.Avg_Pts }}</span></td>
+            </tr>
+            {% endfor %}
+            
+            {% if not players %}
+            <tr><td colspan="8" class="text-center py-4 text-muted">Your roster is empty! Go draft some players.</td></tr>
+            {% endif %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}

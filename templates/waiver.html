@@ -1,0 +1,204 @@
+{% extends 'base.html' %}
+{% block title %}Waiver Wire — Blitz Dynasty{% endblock %}
+
+{% block head %}
+<style>
+.badge-pos{display:inline-block;padding:2px 7px;border-radius:3px;
+           font-size:.72rem;font-weight:700;min-width:32px;text-align:center;}
+.pos-QB{background:#e94560;}.pos-RB{background:#2e7d32;}
+.pos-WR{background:#1565c0;}.pos-TE{background:#6a1b9a;}
+.pot-A{color:#ffd700;font-weight:700;}.pot-B{color:#a0f5a0;}
+.pot-C{color:#aaa;}.pot-D{color:#666;}
+.player-row{cursor:pointer;transition:background .12s;}
+.player-row:hover{background:#16213e !important;}
+.player-row.selected{background:#1a2a3b !important;outline:1px solid #e94560;}
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="d-flex align-items-center justify-content-between mb-3">
+  <h2>Waiver Wire</h2>
+  <a href="{{ url_for('my_team') }}" class="btn btn-sm btn-outline-secondary">← My Team</a>
+</div>
+
+<div class="row g-3">
+
+  <!-- FREE AGENTS -->
+  <div class="col-lg-8">
+    <div class="card">
+      <div class="card-header d-flex align-items-center gap-3">
+        <strong>Free Agents</strong>
+        <form method="GET" action="{{ url_for('waiver') }}" class="d-flex gap-2 ms-auto">
+          <select name="pos" class="form-select form-select-sm" style="width:80px;"
+                  onchange="this.form.submit()">
+            <option value="" {% if not pos_filter %}selected{% endif %}>All</option>
+            {% for pos in ['QB','RB','WR','TE'] %}
+            <option value="{{ pos }}" {% if pos_filter == pos %}selected{% endif %}>{{ pos }}</option>
+            {% endfor %}
+          </select>
+          <input type="text" name="q" class="form-control form-control-sm"
+                 placeholder="Search…" value="{{ search }}" style="width:140px;">
+          <button type="submit" class="btn btn-sm btn-outline-secondary">Go</button>
+        </form>
+      </div>
+      <div style="max-height:600px;overflow-y:auto;">
+        <table class="table table-dark table-sm mb-0">
+          <thead style="position:sticky;top:0;background:#16213e;z-index:1;">
+            <tr>
+              <th style="width:40px;"></th>
+              <th>Player</th>
+              <th style="width:110px;">Archetype</th>
+              <th style="width:44px;">Age</th>
+              <th style="width:34px;">Pot</th>
+              <th style="width:70px;">Szn Pts</th>
+              <th style="width:60px;">Avg</th>
+              <th style="width:80px;"></th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for p in free_agents %}
+            <tr class="player-row" id="fa-{{ p.id }}">
+              <td><span class="badge-pos pos-{{ p.position }}">{{ p.position }}</span></td>
+              <td>
+                {{ p.name }}
+                <div style="font-size:.7rem;color:#666;">{{ p.nfl_team.name if p.nfl_team else 'FA' }}</div>
+              </td>
+              <td style="font-size:.75rem;color:#aaa;">{{ p.archetype }}</td>
+              <td style="color:#aaa;">{{ p.age }}</td>
+              <td class="pot-{{ p.potential }}">{{ p.potential }}</td>
+              <td>{{ "%.1f"|format(p.season_pts) }}</td>
+              <td class="text-muted" style="font-size:.8rem;">
+                {{ "%.1f"|format(p.season_pts/p.games_played) if p.games_played else '—' }}
+              </td>
+              <td>
+                <button class="btn btn-sm btn-outline-secondary claim-btn"
+                        data-id="{{ p.id }}" data-name="{{ p.name }}"
+                        data-pos="{{ p.position }}">
+                  Add
+                </button>
+              </td>
+            </tr>
+            {% else %}
+            <tr><td colspan="8" class="text-center text-muted py-4">No free agents found.</td></tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <!-- MY ROSTER (drop target) -->
+  <div class="col-lg-4">
+    <div class="card">
+      <div class="card-header"><strong>My Roster</strong> <span class="text-muted small">({{ roster|length }}/17)</span></div>
+      <div class="card-body p-0">
+        <table class="table table-dark table-sm mb-0">
+          <thead><tr><th></th><th>Player</th><th class="text-end">Pts</th><th style="width:60px;"></th></tr></thead>
+          <tbody>
+            {% for p in roster | sort(attribute='position') %}
+            <tr>
+              <td><span class="badge-pos pos-{{ p.position }}">{{ p.position }}</span></td>
+              <td style="font-size:.85rem;">{{ p.name }}</td>
+              <td class="text-end text-muted" style="font-size:.8rem;">{{ "%.1f"|format(p.season_pts) }}</td>
+              <td>
+                <button class="btn btn-xs drop-btn"
+                        style="font-size:.72rem;padding:1px 8px;border:1px solid #555;background:transparent;color:#888;"
+                        data-id="{{ p.id }}" data-name="{{ p.name }}">
+                  Drop
+                </button>
+              </td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <div id="claim-info" class="card mt-3" style="display:none;">
+      <div class="card-body">
+        <div style="font-size:.85rem;color:#aaa;margin-bottom:8px;">
+          Adding: <strong id="add-name" style="color:#e0e0e0;"></strong>
+        </div>
+        <div style="font-size:.85rem;color:#aaa;margin-bottom:12px;">
+          Dropping: <strong id="drop-name" style="color:#e94560;">— select from roster —</strong>
+        </div>
+        <button id="confirm-claim-btn" class="btn btn-primary w-100" disabled>
+          Confirm Claim
+        </button>
+        <button id="cancel-claim-btn" class="btn btn-sm w-100 mt-2"
+                style="background:transparent;border:1px solid #555;color:#888;">
+          Cancel
+        </button>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<!-- Toast -->
+<div id="toast" style="display:none;position:fixed;bottom:24px;right:24px;
+     background:#1a3b1a;border:1px solid #2e7d32;border-radius:8px;
+     padding:12px 20px;color:#a0f5a0;font-weight:600;z-index:999;"></div>
+{% endblock %}
+
+{% block scripts %}
+<script>
+let addId = null, dropId = null;
+
+document.querySelectorAll('.claim-btn').forEach(btn => {
+  btn.addEventListener('click', () => {
+    addId = parseInt(btn.dataset.id);
+    document.getElementById('add-name').textContent = btn.dataset.name;
+    document.getElementById('drop-name').textContent = '— select from roster —';
+    document.getElementById('confirm-claim-btn').disabled = true;
+    dropId = null;
+    document.getElementById('claim-info').style.display = 'block';
+    document.querySelectorAll('.drop-btn').forEach(b => b.style.borderColor = '#e94560');
+  });
+});
+
+document.querySelectorAll('.drop-btn').forEach(btn => {
+  btn.addEventListener('click', () => {
+    dropId = parseInt(btn.dataset.id);
+    document.getElementById('drop-name').textContent = btn.dataset.name;
+    document.getElementById('confirm-claim-btn').disabled = false;
+    document.querySelectorAll('.drop-btn').forEach(b => b.style.background = 'transparent');
+    btn.style.background = '#3b1a1a';
+  });
+});
+
+document.getElementById('cancel-claim-btn')?.addEventListener('click', () => {
+  addId = null; dropId = null;
+  document.getElementById('claim-info').style.display = 'none';
+  document.querySelectorAll('.drop-btn').forEach(b => {
+    b.style.background = 'transparent'; b.style.borderColor = '#555';
+  });
+});
+
+document.getElementById('confirm-claim-btn')?.addEventListener('click', async () => {
+  if (!addId || !dropId) return;
+  const btn = document.getElementById('confirm-claim-btn');
+  btn.disabled = true; btn.textContent = 'Processing…';
+
+  const r = await fetch('/api/waiver/claim', {
+    method: 'POST',
+    headers: {'Content-Type': 'application/json'},
+    body: JSON.stringify({add_id: addId, drop_id: dropId}),
+  });
+  const data = await r.json();
+
+  if (r.ok) {
+    showToast(`✓ Added ${data.added}, dropped ${data.dropped}`);
+    setTimeout(() => location.reload(), 1200);
+  } else {
+    alert(data.error || 'Claim failed.');
+    btn.disabled = false; btn.textContent = 'Confirm Claim';
+  }
+});
+
+function showToast(msg) {
+  const t = document.getElementById('toast');
+  t.textContent = msg; t.style.display = 'block';
+  setTimeout(() => t.style.display = 'none', 3000);
+}
+</script>
+{% endblock %}

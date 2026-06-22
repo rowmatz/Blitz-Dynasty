@@ -1,0 +1,161 @@
+{% extends "base.html" %}
+{% block content %}
+
+<div class="row mb-5 align-items-center">
+    <div class="col-md-7">
+        <h1 class="display-4 fw-bold">
+            {{ state.year }} Season
+        </h1>
+        <p class="fs-4 text-muted">
+            {% if state.phase == 'regular_season' %}
+                Week <span class="text-dark fw-bold">{{ state.week }}</span> of 18
+            {% elif state.phase == 'playoffs' %}
+                <span class="badge bg-warning text-dark">🏆 PLAYOFFS</span>
+            {% else %}
+                <span class="badge bg-success">OFFSEASON</span>
+            {% endif %}
+        </p>
+    </div>
+    
+    <div class="col-md-5 text-end">
+        <div class="card shadow-sm border-0">
+            <div class="card-body">
+                <h5 class="card-title text-muted mb-3">Commissioner Actions</h5>
+                
+                {% if state.phase == 'regular_season' %}
+                    <a href="/sim" class="btn btn-primary btn-lg w-100 fw-bold shadow-sm">
+                        🏈 Sim Week {{ state.week }}
+                    </a>
+                {% elif state.phase == 'playoffs' %}
+                    <a href="/playoffs" class="btn btn-warning btn-lg w-100 fw-bold shadow-sm">🏆 Go to Playoffs</a>
+                    <div class="small text-muted mt-2">Regular Season Complete!</div>
+                {% else %}
+                    <a href="/offseason" class="btn btn-success btn-lg w-100 fw-bold shadow-sm">
+                        Start Offseason
+                    </a>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-12">
+        <h3 class="mb-3">League Standings</h3>
+        <div class="card shadow-sm">
+            <div class="table-responsive">
+                <table class="table table-hover mb-0 align-middle">
+                    <thead class="table-dark">
+                        <tr>
+                            <th>Rank</th>
+                            <th>Team</th>
+                            <th class="text-center">W</th>
+                            <th class="text-center">L</th>
+                            <th class="text-center">D</th> <th class="text-center">PF</th>
+                            <th class="text-center">PA</th>
+                            <th class="text-center">Diff</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for team, stats in standings.items() %}
+                        <tr>
+                            <td class="fw-bold text-muted ps-3">{{ loop.index }}</td>
+                            <td class="fw-bold">
+                                <a href="/roster/{{ team }}" class="text-decoration-none text-dark">
+                                    {{ team }}
+                                </a>
+                            </td>
+                            <td class="text-center fw-bold text-success">{{ stats.W }}</td>
+                            <td class="text-center">{{ stats.L }}</td>
+                            <td class="text-center text-muted">{{ stats.D }}</td> <td class="text-center">{{ stats.PF }}</td>
+                            <td class="text-center">{{ stats.PF }}</td>
+                            <td class="text-center text-muted">{{ stats.PA }}</td>
+                            <td class="text-center fw-bold">
+                                {% set diff = stats.PF - stats.PA %}
+                                {% if diff > 0 %}
+                                    <span class="text-success">+{{ diff }}</span>
+                                {% elif diff < 0 %}
+                                    <span class="text-danger">{{ diff }}</span>
+                                {% else %}
+                                    0
+                                {% endif %}
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row mt-5">
+    <div class="col-12">
+        <h3 class="mb-3">League Leaders</h3>
+        
+        <div class="card shadow-sm">
+            <div class="card-header bg-light">
+                <ul class="nav nav-tabs card-header-tabs" id="leaderTabs" role="tablist">
+                    {% for pos in ['QB', 'RB', 'WR', 'TE', 'DEF'] %}
+                    <li class="nav-item">
+                        <button class="nav-link fw-bold {{ 'active' if loop.first else '' }}" 
+                                data-bs-toggle="tab" data-bs-target="#lead-{{ pos }}">
+                            {{ pos }}
+                        </button>
+                    </li>
+                    {% endfor %}
+                </ul>
+            </div>
+            
+            <div class="card-body">
+                <div class="tab-content">
+                    {% for pos, players in leaders.items() %}
+                    <div class="tab-pane fade {{ 'show active' if loop.first else '' }}" id="lead-{{ pos }}">
+                        <table class="table table-hover align-middle mb-0">
+                            <thead class="table-light">
+                                <tr>
+                                    <th>Rank</th>
+                                    <th>Player</th>
+                                    <th>Team</th>
+                                    <th class="text-end">Fantasy Pts</th>
+                                    <th class="text-end">Key Stat</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for p in players %}
+                                <tr>
+                                    <td class="text-muted fw-bold">{{ loop.index }}</td>
+                                    <td class="fw-bold">
+                                        <a href="/player/{{ p.Player_Name }}" class="text-decoration-none text-dark">
+                                            {{ p.Player_Name }}
+                                        </a>
+                                    </td>
+                                    <td>{{ p.Abbr }}</td>
+                                    <td class="text-end fw-bold text-primary">{{ p.Season_Pts|round(1) }}</td>
+                                    <td class="text-end small text-muted">
+                                        {% if pos == 'QB' %}{{ p.Pass_Yds }} Yds, {{ p.Pass_TD }} TD
+                                        {% elif pos == 'RB' %}{{ p.Rush_Yds }} Yds, {{ p.Rush_TD }} TD
+                                        {% elif pos == 'WR' or pos == 'TE' %}{{ p.Rec }} Rec, {{ p.Rec_Yds }} Yds
+                                        {% elif pos == 'DEF' %}{{ p.Int }} INT
+                                        {% endif %}
+                                    </td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="mt-5 pt-5 border-top text-center">
+    <p class="text-muted small">Commissioner Tools</p>
+    <a href="/reset_league" class="btn btn-sm btn-outline-danger" onclick="return confirm('WARNING: This will wipe the entire league history, roster changes, and stats. Are you sure?')">
+        ⚠️ Factory Reset League
+    </a>
+</div>
+
+{% endblock %}

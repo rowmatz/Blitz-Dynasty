@@ -1,0 +1,47 @@
+{% extends 'base.html' %}
+{% block title %}NFL Standings — Blitz Dynasty{% endblock %}
+
+{% block content %}
+<div class="d-flex align-items-center justify-content-between mb-3">
+  <h2>NFL Standings</h2>
+  <span class="text-muted small">{{ state.season_year }} Season</span>
+</div>
+
+<div class="card">
+  <div class="card-body p-0">
+    <table class="table table-dark table-sm mb-0">
+      <thead style="position:sticky;top:0;background:#16213e;">
+        <tr>
+          <th style="width:34px;">#</th>
+          <th>Team</th>
+          <th style="width:46px;" class="text-center">Abbr</th>
+          <th style="width:55px;" class="text-center">W</th>
+          <th style="width:55px;" class="text-center">L</th>
+          <th style="width:55px;" class="text-center">Pct</th>
+          <th style="width:80px;" class="text-end">PF</th>
+          <th style="width:80px;" class="text-end">PA</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for t in nfl_teams %}
+        <tr>
+          <td class="text-muted">{{ loop.index }}</td>
+          <td><strong>{{ t.name }}</strong></td>
+          <td class="text-center" style="font-size:.78rem;color:#aaa;">{{ t.abbr }}</td>
+          <td class="text-center" style="color:#a0f5a0;font-weight:600;">{{ t.wins }}</td>
+          <td class="text-center" style="color:#f5a0a0;">{{ t.losses }}</td>
+          <td class="text-center text-muted" style="font-size:.83rem;">
+            {% set gp = t.wins + t.losses %}
+            {{ "%.3f"|format(t.wins / gp) if gp > 0 else '—' }}
+          </td>
+          <td class="text-end">{{ t.points_for }}</td>
+          <td class="text-end text-muted">{{ t.points_against }}</td>
+        </tr>
+        {% else %}
+        <tr><td colspan="8" class="text-center text-muted py-4">No NFL data yet.</td></tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+</div>
+{% endblock %}

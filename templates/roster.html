@@ -1,0 +1,90 @@
+{% extends "base.html" %}
+{% block content %}
+
+<div class="row mb-4">
+    <div class="col-12">
+        <h1 class="display-5 fw-bold">{{ team }}</h1>
+        <a href="/" class="btn btn-outline-secondary btn-sm">&larr; Back to League</a>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-8">
+        <div class="card shadow-sm">
+            <div class="card-header bg-dark text-white">Active Roster</div>
+            <table class="table table-striped mb-0 align-middle">
+                <thead class="table-light">
+                    <tr>
+                        <th>Pos</th>
+                        <th>Player</th>
+                        <th>Age</th>
+                        <th>Arch</th>
+                        <th>OVR</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for p in players %}
+                    <tr>
+                        <td class="pos-{{ p.Position }} fw-bold">{{ p.Position }}</td>
+                        <td>
+                            <a href="/player/{{ p.Player_Name }}" class="text-decoration-none text-dark">
+                                {{ p.Player_Name }}
+                            </a>
+                        </td>
+                        <td>{{ p.Age }}</td>
+                        <td><span class="badge bg-light text-dark border">{{ p.Archetype }}</span></td>
+                        <td>
+                            {% if p.Skill_Bonus > 0 %}
+                                <span class="text-success small">+{{ (p.Skill_Bonus*100)|int }}%</span>
+                            {% else %}
+                                -
+                            {% endif %}
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <div class="col-md-4">
+        <div class="card shadow-sm">
+            <div class="card-header bg-secondary text-white">Season Results</div>
+            <div class="card-body p-0">
+                {% if schedule %}
+                <table class="table table-hover mb-0 small">
+                    <thead class="table-light">
+                        <tr>
+                            <th>Wk</th>
+                            <th>Opp</th>
+                            <th>Res</th>
+                            <th>Score</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for game in schedule %}
+                        <tr>
+                            <td class="text-muted">{{ game.week }}</td>
+                            <td>{{ game.opponent }}</td>
+                            <td>
+                                {% if game.result == 'W' %}<span class="badge bg-success">W</span>
+                                {% elif game.result == 'L' %}<span class="badge bg-danger">L</span>
+                                {% else %}<span class="badge bg-secondary">D</span>
+                                {% endif %}
+                            </td>
+                            <td class="fw-bold">{{ game.score_line }}</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+                {% else %}
+                    <div class="p-4 text-center text-muted">
+                        No games played yet this season.
+                    </div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

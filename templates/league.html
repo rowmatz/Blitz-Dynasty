@@ -1,0 +1,83 @@
+{% extends 'base.html' %}
+{% block title %}League Standings — Blitz Dynasty{% endblock %}
+
+{% block content %}
+<div class="d-flex align-items-center justify-content-between mb-3">
+  <h2>League Standings</h2>
+  <span class="text-muted small">Week {{ state.week }} &mdash; {{ state.season_year }} Season</span>
+</div>
+
+<div class="card">
+  <div class="card-body p-0">
+    <table class="table table-dark table-sm mb-0">
+      <thead style="position:sticky;top:0;background:#16213e;">
+        <tr>
+          <th style="width:34px;">#</th>
+          <th>Team</th>
+          <th style="width:60px;" class="text-center">W</th>
+          <th style="width:60px;" class="text-center">L</th>
+          <th style="width:90px;" class="text-end">PF</th>
+          <th style="width:90px;" class="text-end">PA</th>
+          <th style="width:90px;" class="text-end">Diff</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for t in teams %}
+        <tr {% if t.user_id == current_user.id %}style="background:#1a2a3b;"{% endif %}>
+          <td class="text-muted">{{ loop.index }}</td>
+          <td>
+            <strong {% if t.user_id == current_user.id %}style="color:#e94560;"{% endif %}>
+              {{ t.name }}
+            </strong>
+            <span class="text-muted" style="font-size:.75rem;"> &mdash; {{ t.owner.username }}</span>
+          </td>
+          <td class="text-center" style="color:#a0f5a0;font-weight:600;">{{ t.wins }}</td>
+          <td class="text-center" style="color:#f5a0a0;">{{ t.losses }}</td>
+          <td class="text-end">{{ "%.1f"|format(t.points_for) }}</td>
+          <td class="text-end text-muted">{{ "%.1f"|format(t.points_against) }}</td>
+          <td class="text-end" style="font-size:.85rem;
+            {% if t.points_for > t.points_against %}color:#a0f5a0;{% elif t.points_for < t.points_against %}color:#f5a0a0;{% else %}color:#888;{% endif %}">
+            {% set diff = t.points_for - t.points_against %}
+            {{ "%+.1f"|format(diff) }}
+          </td>
+        </tr>
+        {% else %}
+        <tr><td colspan="7" class="text-center text-muted py-4">No teams yet.</td></tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+</div>
+
+{% if state.phase in ('regular_season', 'playoffs') %}
+<div class="row g-3 mt-1">
+  {% for t in teams %}
+  <div class="col-lg-6">
+    <div class="card" style="border-color:{% if t.user_id == current_user.id %}#e94560{% else %}#2a2a4a{% endif %};">
+      <div class="card-header d-flex justify-content-between">
+        <strong>{{ t.name }}</strong>
+        <span class="text-muted small">{{ t.wins }}W {{ t.losses }}L</span>
+      </div>
+      <div class="card-body p-2">
+        <table class="table table-dark table-sm mb-0" style="font-size:.8rem;">
+          <thead><tr><th>Player</th><th style="width:36px;">Pos</th><th class="text-end">Pts</th></tr></thead>
+          <tbody>
+            {% for r in t.roster | sort(attribute='player.season_pts', reverse=True) %}
+            {% if loop.index <= 5 %}
+            <tr>
+              <td>{{ r.player.name }}</td>
+              <td><span class="badge-pos pos-{{ r.player.position }}" style="display:inline-block;padding:1px 5px;border-radius:3px;font-size:.68rem;font-weight:700;">{{ r.player.position }}</span></td>
+              <td class="text-end">{{ "%.1f"|format(r.player.season_pts) }}</td>
+            </tr>
+            {% endif %}
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+  {% endfor %}
+</div>
+{% endif %}
+
+{% endblock %}

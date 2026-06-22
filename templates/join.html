@@ -1,0 +1,44 @@
+{% extends 'base.html' %}
+{% block title %}Join the League — Blitz Dynasty{% endblock %}
+
+{% block content %}
+<div class="row justify-content-center">
+  <div class="col-md-5">
+    <div class="text-center mb-4">
+      <h1 style="color:#e94560; font-size:2.5rem; font-weight:700;">⚡ BLITZ DYNASTY</h1>
+      <p class="text-muted">Join with your invite code</p>
+    </div>
+
+    <div class="card">
+      <div class="card-header"><strong>Create Your Account</strong></div>
+      <div class="card-body">
+        <form method="POST">
+          <div class="mb-3">
+            <label class="form-label">Invite Code</label>
+            <input type="text" name="code" class="form-control text-uppercase"
+                   value="{{ code }}" placeholder="e.g. A1B2C3D4" required
+                   style="letter-spacing: 2px; font-weight: bold;">
+          </div>
+          <div class="mb-3">
+            <label class="form-label">Username</label>
+            <input type="text" name="username" class="form-control" required autofocus>
+          </div>
+          <div class="mb-3">
+            <label class="form-label">Password</label>
+            <input type="password" name="password" class="form-control" required minlength="6">
+          </div>
+          <div class="mb-3">
+            <label class="form-label">Team Name</label>
+            <input type="text" name="team_name" class="form-control" placeholder="e.g. The Destroyers" required>
+          </div>
+          <button type="submit" class="btn btn-primary w-100">Join League</button>
+        </form>
+        <hr style="border-color:#2a2a4a;">
+        <p class="text-center text-muted small mb-0">
+          Already have an account? <a href="{{ url_for('login') }}" style="color:#e94560;">Log in</a>
+        </p>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

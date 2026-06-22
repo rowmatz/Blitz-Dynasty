@@ -1,0 +1,332 @@
+{% extends 'base.html' %}
+{% block title %}Draft Room — Blitz Dynasty{% endblock %}
+
+{% block head %}
+<style>
+  .draft-layout { display: grid; grid-template-columns: 1fr 340px; gap: 16px; }
+
+  #timer-ring {
+    width: 80px; height: 80px; flex-shrink: 0;
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1.6rem; font-weight: 700;
+    border: 5px solid #2a2a4a;
+    transition: border-color 0.5s;
+  }
+  #timer-ring.urgent { border-color: #e94560; color: #e94560; animation: pulse 1s infinite; }
+  #timer-ring.ok     { border-color: #2e7d32; color: #a0f5a0; }
+  #timer-ring.waiting{ border-color: #555;    color: #888; }
+  @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:0.5} }
+
+  .on-clock-banner {
+    background: #1a2a3b; border: 1px solid #2a2a4a;
+    border-radius: 8px; padding: 12px 16px;
+    display: flex; align-items: center; gap: 16px;
+  }
+  .my-turn-banner { background: #3b1a1a; border-color: #e94560;
+    animation: glow 1.5s ease-in-out infinite alternate; }
+  @keyframes glow {
+    from { box-shadow: 0 0 4px rgba(233,69,96,0.3); }
+    to   { box-shadow: 0 0 18px rgba(233,69,96,0.7); }
+  }
+
+  .player-row { cursor: pointer; transition: background 0.12s; }
+  .player-row:hover   { background: #16213e !important; }
+  .player-row.selected{ background: #1a2a3b !important; outline: 1px solid #e94560; }
+
+  .badge-pos {
+    display:inline-block; padding:2px 7px; border-radius:3px;
+    font-size:0.72rem; font-weight:700; min-width:32px; text-align:center;
+  }
+  .pos-QB{background:#e94560;} .pos-RB{background:#2e7d32;}
+  .pos-WR{background:#1565c0;} .pos-TE{background:#6a1b9a;}
+  .pot-A{color:#ffd700;font-weight:700;} .pot-B{color:#a0f5a0;}
+  .pot-C{color:#aaa;} .pot-D{color:#666;}
+
+  .pick-feed-item { padding:5px 0; border-bottom:1px solid #1a1a2e; font-size:0.83rem; }
+  .pick-feed-item:last-child { border-bottom:none; }
+  .auto-label { color:#666; font-style:italic; font-size:0.73rem; }
+
+  .my-roster-item {
+    display:flex; align-items:center; gap:8px;
+    padding:4px 0; border-bottom:1px solid #1a1a2e; font-size:0.82rem;
+  }
+
+  #draft-pick-btn {
+    width:100%; padding:14px; font-size:1.05rem; font-weight:700;
+    background:#e94560; border:none; border-radius:6px; color:white;
+    cursor:pointer; transition:background 0.2s;
+  }
+  #draft-pick-btn:disabled { background:#555; cursor:not-allowed; }
+  #draft-pick-btn:not(:disabled):hover { background:#c73652; }
+
+  .pos-btn {
+    padding:4px 14px; border-radius:20px; border:1px solid #2a2a4a;
+    background:transparent; color:#aaa; cursor:pointer; font-size:0.83rem;
+    transition: border-color 0.15s, color 0.15s;
+  }
+  .pos-btn.active { border-color:#e94560; color:#e94560; }
+</style>
+{% endblock %}
+
+{% block content %}
+
+{% if draft.status == 'complete' %}
+  <div class="text-center py-5">
+    <div style="background:#1a3b1a;border:2px solid #2e7d32;border-radius:12px;padding:40px;display:inline-block;">
+      <h2 style="color:#2e7d32;">Draft Complete!</h2>
+      <p class="text-muted">All {{ draft.total_picks() }} picks are in. The season is about to begin.</p>
+      <a href="{{ url_for('index') }}" class="btn btn-primary mt-2">Go to My Team</a>
+    </div>
+  </div>
+
+{% else %}
+
+<!-- ON THE CLOCK BANNER -->
+<div id="on-clock-banner" class="on-clock-banner mb-3">
+  <div id="timer-ring" class="waiting">—</div>
+  <div class="flex-grow-1">
+    <div id="clock-label" style="font-size:0.8rem;color:#888;">Connecting…</div>
+    <div id="clock-team" style="font-size:1.2rem;font-weight:700;">—</div>
+  </div>
+  <div style="text-align:right;flex-shrink:0;">
+    <div style="font-size:0.75rem;color:#888;">Pick</div>
+    <div id="pick-counter" style="font-size:1.1rem;font-weight:700;">—</div>
+    <div id="round-label"  style="font-size:0.78rem;color:#888;">—</div>
+  </div>
+</div>
+
+<div class="draft-layout">
+
+  <!-- LEFT: AVAILABLE PLAYERS -->
+  <div>
+    <div class="card">
+      <div class="card-header d-flex align-items-center gap-3">
+        <strong>Available Players</strong>
+        <input id="search-input" type="text" class="form-control form-control-sm"
+               placeholder="Search…" style="width:150px;margin-left:auto;">
+      </div>
+      <div class="card-body py-2 px-3">
+        <div class="d-flex align-items-center gap-2 flex-wrap">
+          <button class="pos-btn active" data-pos="">All</button>
+          <button class="pos-btn" data-pos="QB">QB</button>
+          <button class="pos-btn" data-pos="RB">RB</button>
+          <button class="pos-btn" data-pos="WR">WR</button>
+          <button class="pos-btn" data-pos="TE">TE</button>
+          <span id="avail-count" class="text-muted small ms-auto"></span>
+        </div>
+      </div>
+      <div style="max-height:480px;overflow-y:auto;">
+        <table class="table table-dark table-sm mb-0" style="table-layout:fixed;">
+          <thead style="position:sticky;top:0;background:#16213e;z-index:1;">
+            <tr>
+              <th style="width:38px;"></th>
+              <th>Player</th>
+              <th style="width:90px;">Archetype</th>
+              <th style="width:40px;">Age</th>
+              <th style="width:34px;">Pot</th>
+              <th style="width:64px;">Rating</th>
+            </tr>
+          </thead>
+          <tbody id="player-tbody"></tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="mt-3">
+      <div id="selected-info" style="min-height:18px;font-size:0.85rem;color:#aaa;margin-bottom:6px;"></div>
+      <button id="draft-pick-btn" disabled>Select a player to draft</button>
+    </div>
+  </div>
+
+  <!-- RIGHT SIDEBAR -->
+  <div style="display:flex;flex-direction:column;gap:16px;">
+
+    <div class="card">
+      <div class="card-header d-flex justify-content-between">
+        <strong>My Roster</strong>
+        <span id="roster-count" class="text-muted small"></span>
+      </div>
+      <div class="card-body py-2 px-3" style="max-height:320px;overflow-y:auto;">
+        <div id="my-roster"></div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-header"><strong>Recent Picks</strong></div>
+      <div class="card-body py-2 px-3" style="max-height:280px;overflow-y:auto;">
+        <div id="pick-feed"><p class="text-muted small mb-0">Waiting for first pick…</p></div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+{% endif %}
+{% endblock %}
+
+{% block scripts %}
+{% if draft.status != 'complete' %}
+<script>
+const MY_TEAM_ID = {{ current_user.fantasy_team.id if current_user.fantasy_team else 'null' }};
+let selectedId   = null;
+let selectedName = null;
+let selectedPos  = null;
+let isMyTurn     = false;
+let posFilter    = '';
+let searchQ      = '';
+
+// ─── POLLING ──────────────────────────────────────────────────────────────────
+function startPolling() {
+  poll();
+  setInterval(poll, 3000);
+}
+
+async function poll() {
+  const [stateRes, availRes] = await Promise.all([
+    fetch('/api/draft/state'),
+    fetch('/api/draft/available?' + new URLSearchParams(
+      Object.fromEntries([posFilter && ['pos', posFilter], searchQ && ['q', searchQ]].filter(Boolean))
+    )),
+  ]);
+  if (stateRes.ok) updateState(await stateRes.json());
+  if (availRes.ok) renderPlayers(await availRes.json());
+}
+
+// ─── STATE ────────────────────────────────────────────────────────────────────
+function updateState(d) {
+  if (d.status === 'complete') { location.reload(); return; }
+
+  isMyTurn = d.is_my_turn;
+
+  const banner = document.getElementById('on-clock-banner');
+  banner.className = 'on-clock-banner mb-3' + (isMyTurn ? ' my-turn-banner' : '');
+  document.getElementById('clock-label').textContent = isMyTurn ? '⚡ YOUR PICK' : 'On the clock:';
+  document.getElementById('clock-team').textContent  = d.on_clock_team_name || '—';
+  document.getElementById('pick-counter').textContent = `${d.current_pick} / ${d.total_picks}`;
+  document.getElementById('round-label').textContent  = `Round ${d.round}, Pick ${d.pick_in_round}`;
+
+  // Timer ring
+  const ring = document.getElementById('timer-ring');
+  ring.textContent = d.seconds_left;
+  ring.className = !isMyTurn ? 'waiting' : d.seconds_left <= 15 ? 'urgent' : 'ok';
+
+  updateBtn();
+  renderFeed(d.picks);
+  renderRoster(d.my_roster);
+}
+
+// ─── AVAILABLE PLAYERS ────────────────────────────────────────────────────────
+function renderPlayers(players) {
+  document.getElementById('avail-count').textContent = `${players.length} available`;
+  const tbody = document.getElementById('player-tbody');
+  if (!players.length) {
+    tbody.innerHTML = '<tr><td colspan="6" class="text-center text-muted py-3">No players found</td></tr>';
+    return;
+  }
+  tbody.innerHTML = players.map(p => {
+    const sel = p.id === selectedId ? 'selected' : '';
+    const pct = Math.min(100, Math.max(0, Math.round((p.skill_bonus + 0.15) / 0.35 * 100)));
+    return `<tr class="player-row ${sel}" onclick="selectPlayer(${p.id},'${escHtml(p.name)}','${p.position}')">
+      <td><span class="badge-pos pos-${p.position}">${p.position}</span></td>
+      <td style="overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">
+        ${escHtml(p.name)}
+        <div style="font-size:0.7rem;color:#555;">${escHtml(p.nfl_team)}</div>
+      </td>
+      <td style="font-size:0.73rem;color:#888;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">${p.archetype}</td>
+      <td style="color:#aaa;">${p.age}</td>
+      <td class="pot-${p.potential}">${p.potential}</td>
+      <td>
+        <div style="background:#2a2a4a;border-radius:3px;height:7px;">
+          <div style="background:#e94560;height:100%;width:${pct}%;border-radius:3px;"></div>
+        </div>
+      </td>
+    </tr>`;
+  }).join('');
+}
+
+function selectPlayer(id, name, pos) {
+  selectedId = id; selectedName = name; selectedPos = pos;
+  document.querySelectorAll('.player-row').forEach(r => r.classList.remove('selected'));
+  document.querySelector(`[onclick*="selectPlayer(${id},"]`)?.classList.add('selected');
+  document.getElementById('selected-info').textContent = `Selected: ${name} (${pos})`;
+  updateBtn();
+}
+
+function updateBtn() {
+  const btn = document.getElementById('draft-pick-btn');
+  if (!isMyTurn)        { btn.disabled = true;  btn.textContent = 'Waiting for your turn…'; }
+  else if (!selectedId) { btn.disabled = true;  btn.textContent = 'Select a player to draft'; }
+  else                  { btn.disabled = false; btn.textContent = `Draft ${selectedName}`; }
+}
+
+// ─── SUBMIT PICK ──────────────────────────────────────────────────────────────
+document.getElementById('draft-pick-btn').addEventListener('click', async () => {
+  if (!isMyTurn || !selectedId) return;
+  const btn = document.getElementById('draft-pick-btn');
+  btn.disabled = true; btn.textContent = 'Submitting…';
+
+  const r = await fetch('/api/draft/pick', {
+    method: 'POST',
+    headers: {'Content-Type': 'application/json'},
+    body: JSON.stringify({player_id: selectedId}),
+  });
+  const data = await r.json();
+  if (!r.ok) { alert(data.error || 'Pick failed.'); updateBtn(); return; }
+
+  selectedId = null; selectedName = null; selectedPos = null;
+  document.getElementById('selected-info').textContent = '';
+  poll();
+});
+
+// ─── FEED & ROSTER ────────────────────────────────────────────────────────────
+function renderFeed(picks) {
+  const el = document.getElementById('pick-feed');
+  if (!picks.length) { el.innerHTML = '<p class="text-muted small mb-0">Waiting for first pick…</p>'; return; }
+  el.innerHTML = picks.map(p => `
+    <div class="pick-feed-item">
+      <span class="badge-pos pos-${p.position}" style="margin-right:5px;">${p.position}</span>
+      <strong>${escHtml(p.player_name)}</strong>
+      <span class="text-muted" style="font-size:0.78rem;"> — ${escHtml(p.team_name)}</span>
+      ${p.auto ? '<span class="auto-label"> (auto)</span>' : ''}
+      <div style="font-size:0.7rem;color:#555;">Pick ${p.pick_number} · Round ${p.round}</div>
+    </div>`).join('');
+}
+
+function renderRoster(roster) {
+  document.getElementById('roster-count').textContent = `${roster.length}/17`;
+  const el = document.getElementById('my-roster');
+  if (!roster.length) { el.innerHTML = '<p class="text-muted small mb-0">No picks yet.</p>'; return; }
+  el.innerHTML = roster.map(p => `
+    <div class="my-roster-item">
+      <span class="badge-pos pos-${p.position}">${p.position}</span>
+      <span style="flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">${escHtml(p.player_name)}</span>
+      <span style="font-size:0.7rem;color:#666;flex-shrink:0;">Rd ${p.round}</span>
+    </div>`).join('');
+}
+
+// ─── FILTERS ──────────────────────────────────────────────────────────────────
+document.querySelectorAll('.pos-btn').forEach(btn => {
+  btn.addEventListener('click', () => {
+    document.querySelectorAll('.pos-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    posFilter = btn.dataset.pos;
+    poll();
+  });
+});
+
+let searchTimer;
+document.getElementById('search-input').addEventListener('input', e => {
+  clearTimeout(searchTimer);
+  searchTimer = setTimeout(() => { searchQ = e.target.value.trim(); poll(); }, 280);
+});
+
+// ─── UTIL ─────────────────────────────────────────────────────────────────────
+function escHtml(s) {
+  return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+}
+
+startPolling();
+</script>
+{% endif %}
+{% endblock %}

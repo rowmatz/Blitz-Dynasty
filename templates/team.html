@@ -1,0 +1,216 @@
+{% extends 'base.html' %}
+{% block title %}{{ team.name }} — Blitz Dynasty{% endblock %}
+
+{% block head %}
+<style>
+.slot-row { display:flex; align-items:center; gap:10px; padding:7px 0;
+            border-bottom:1px solid #1a1a2e; }
+.slot-label { width:90px; flex-shrink:0; font-size:0.78rem;
+              color:#888; text-transform:uppercase; letter-spacing:.5px; }
+.slot-player { flex:1; display:flex; align-items:center; gap:8px; }
+.slot-empty { color:#555; font-style:italic; font-size:0.85rem; }
+.bench-row { opacity:0.7; }
+.badge-pos { display:inline-block; padding:2px 7px; border-radius:3px;
+             font-size:0.72rem; font-weight:700; min-width:32px; text-align:center; }
+.pos-QB{background:#e94560;} .pos-RB{background:#2e7d32;}
+.pos-WR{background:#1565c0;} .pos-TE{background:#6a1b9a;}
+.pot-A{color:#ffd700;font-weight:700;} .pot-B{color:#a0f5a0;}
+.pot-C{color:#aaa;} .pot-D{color:#666;}
+.matchup-card { background:#16213e; border-radius:10px; padding:20px;
+                border:1px solid #2a2a4a; text-align:center; }
+.trade-alert { background:#3b2a1a; border:1px solid #e97e56;
+               border-radius:6px; padding:10px 14px; margin-bottom:8px; font-size:0.88rem; }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="d-flex align-items-start justify-content-between mb-3">
+  <div>
+    <h2 style="margin-bottom:2px;">{{ team.name }}</h2>
+    <span class="text-muted small">{{ team.wins }}W {{ team.losses }}L
+      &mdash; {{ "%.1f"|format(team.points_for) }} pts scored</span>
+  </div>
+  <div class="text-end">
+    <a href="{{ url_for('waiver') }}" class="btn btn-sm btn-outline-secondary me-2">Waiver Wire</a>
+    <a href="{{ url_for('trades') }}" class="btn btn-sm btn-outline-secondary">Trades</a>
+  </div>
+</div>
+
+{% if pending_trades %}
+<div class="mb-3">
+  {% for t in pending_trades %}
+  <div class="trade-alert">
+    <strong>Trade offer</strong> from {{ t.proposing_team.name }}
+    &mdash; <a href="{{ url_for('trades') }}" style="color:#e97e56;">Review →</a>
+  </div>
+  {% endfor %}
+</div>
+{% endif %}
+
+<div class="row g-3">
+
+  <!-- LINEUP -->
+  <div class="col-lg-7">
+    <div class="card">
+      <div class="card-header d-flex justify-content-between align-items-center">
+        <strong>Week {{ state.week }} Lineup</strong>
+        <button id="save-lineup-btn" class="btn btn-sm btn-primary" style="display:none;">
+          Save Lineup
+        </button>
+      </div>
+      <div class="card-body py-2 px-3" id="lineup-container">
+
+        <!-- Starters -->
+        <div style="font-size:0.72rem;color:#888;text-transform:uppercase;
+                    letter-spacing:.8px;margin:6px 0 4px;">Starters</div>
+        {% for slot in STARTER_SLOTS %}
+          {% set player = lineup.get(slot) %}
+          <div class="slot-row">
+            <div class="slot-label">{{ slot }}</div>
+            <div class="slot-player">
+              {% if player %}
+                <span class="badge-pos pos-{{ player.position }}">{{ player.position }}</span>
+                <span style="color:#e0e0e0;">{{ player.name }}</span>
+                <span style="font-size:0.75rem;color:#666;">{{ player.archetype }}</span>
+                <span class="pot-{{ player.potential }}" style="font-size:0.75rem;margin-left:auto;">{{ player.potential }}</span>
+              {% else %}
+                <span class="slot-empty">— empty —</span>
+              {% endif %}
+            </div>
+            <select class="form-select form-select-sm slot-select"
+                    data-slot="{{ slot }}"
+                    data-eligible="{{ SLOT_ELIGIBILITY.get(slot, [])|join(',') }}"
+                    style="width:180px;flex-shrink:0;">
+              <option value="">— change —</option>
+              {% for p in roster %}
+                {% if p.position in SLOT_ELIGIBILITY.get(slot, []) %}
+                  <option value="{{ p.id }}"
+                    {% if player and player.id == p.id %}selected{% endif %}>
+                    {{ p.name }} ({{ p.position }})
+                  </option>
+                {% endif %}
+              {% endfor %}
+            </select>
+          </div>
+        {% endfor %}
+
+        <!-- Bench -->
+        <div style="font-size:0.72rem;color:#888;text-transform:uppercase;
+                    letter-spacing:.8px;margin:12px 0 4px;">Bench</div>
+        {% set bench_slots = ['BN1','BN2','BN3','BN4','BN5','BN6','BN7','BN8','BN9'] %}
+        {% for slot in bench_slots %}
+          {% set player = lineup.get(slot) %}
+          <div class="slot-row bench-row">
+            <div class="slot-label">{{ slot }}</div>
+            <div class="slot-player">
+              {% if player %}
+                <span class="badge-pos pos-{{ player.position }}">{{ player.position }}</span>
+                <span style="color:#e0e0e0;">{{ player.name }}</span>
+                <span style="font-size:0.75rem;color:#666;">{{ player.archetype }}</span>
+              {% else %}
+                <span class="slot-empty">— empty —</span>
+              {% endif %}
+            </div>
+          </div>
+        {% endfor %}
+
+      </div>
+    </div>
+  </div>
+
+  <!-- MATCHUP + STATS -->
+  <div class="col-lg-5">
+
+    {% if matchup %}
+    {% set result = matchup.result %}
+    <div class="matchup-card mb-3">
+      <div style="font-size:0.78rem;color:#888;margin-bottom:8px;">
+        Week {{ state.week }} Matchup
+      </div>
+      {% set opp = matchup.away_team if matchup.home_team_id == team.id else matchup.home_team %}
+      {% if result %}
+        <div style="font-size:1.8rem;font-weight:700;">
+          {{ "%.1f"|format(result.home_score if matchup.home_team_id == team.id else result.away_score) }}
+          <span style="color:#555;font-size:1rem;"> — </span>
+          {{ "%.1f"|format(result.away_score if matchup.home_team_id == team.id else result.home_score) }}
+        </div>
+        <div class="text-muted small mt-1">vs {{ opp.name }}
+          {% if result.winner_id == team.id %}
+            <span style="color:#2e7d32;"> WIN</span>
+          {% else %}
+            <span style="color:#e94560;"> LOSS</span>
+          {% endif %}
+        </div>
+      {% else %}
+        <div style="font-size:1.1rem;font-weight:600;">vs {{ opp.name }}</div>
+        <div class="text-muted small mt-1">Not yet played</div>
+      {% endif %}
+    </div>
+    {% endif %}
+
+    <!-- SEASON STATS SUMMARY -->
+    <div class="card">
+      <div class="card-header"><strong>Season Leaders</strong></div>
+      <div class="card-body p-0">
+        <table class="table table-dark table-sm mb-0">
+          <thead>
+            <tr><th>Player</th><th>Pos</th><th class="text-end">Pts</th><th class="text-end">Avg</th></tr>
+          </thead>
+          <tbody>
+            {% for p in roster | sort(attribute='season_pts', reverse=True) | list %}
+            {% if p.position != 'DEF' and loop.index <= 8 %}
+            <tr>
+              <td style="font-size:0.83rem;overflow:hidden;text-overflow:ellipsis;max-width:120px;white-space:nowrap;">
+                {{ p.name }}</td>
+              <td><span class="badge-pos pos-{{ p.position }}">{{ p.position }}</span></td>
+              <td class="text-end">{{ "%.1f"|format(p.season_pts) }}</td>
+              <td class="text-end text-muted" style="font-size:0.8rem;">
+                {{ "%.1f"|format(p.season_pts / p.games_played) if p.games_played else '—' }}
+              </td>
+            </tr>
+            {% endif %}
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+  </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script>
+let dirty = false;
+
+document.querySelectorAll('.slot-select').forEach(sel => {
+  sel.addEventListener('change', () => {
+    dirty = true;
+    document.getElementById('save-lineup-btn').style.display = 'inline-block';
+  });
+});
+
+document.getElementById('save-lineup-btn').addEventListener('click', async () => {
+  const btn = document.getElementById('save-lineup-btn');
+  const assignments = {};
+  document.querySelectorAll('.slot-select').forEach(sel => {
+    if (sel.value) assignments[sel.dataset.slot] = parseInt(sel.value);
+  });
+
+  btn.disabled = true; btn.textContent = 'Saving…';
+  const r = await fetch('/api/team/lineup', {
+    method: 'POST',
+    headers: {'Content-Type': 'application/json'},
+    body: JSON.stringify(assignments),
+  });
+  const data = await r.json();
+  if (r.ok) {
+    btn.textContent = 'Saved ✓';
+    setTimeout(() => { btn.textContent = 'Save Lineup'; btn.disabled = false; }, 2000);
+  } else {
+    alert(data.error || 'Failed to save lineup.');
+    btn.disabled = false; btn.textContent = 'Save Lineup';
+  }
+});
+</script>
+{% endblock %}

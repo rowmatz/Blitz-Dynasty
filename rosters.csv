@@ -1,0 +1,381 @@
+Team_Name,Abbr,Player_Name,Position,Archetype,Age,Potential,Skill_Bonus,Season_Pts,Games_Played,Pass_Yds,Pass_TD,Int,Rush_Yds,Rush_TD,Rec_Yds,Rec_TD,Rec,Targets
+NY Nightmares,NYN,Gunslinger Gary,QB,Gunslinger,24,A,0.05,22.479999999999997,2,,,,,,,,,
+NY Nightmares,NYN,Speedy Gonzalez,RB,Home Run RB,22,B,0.02,26.4,2,,,,,,,,,
+NY Nightmares,NYN,Deep Threat Danny,WR,Deep Threat,25,C,0.0,31.4,2,,,,,,,,,
+NY Nightmares,NYN,Alpha Adam,WR,Alpha WR,27,A,0.1,17.4,2,,,,,,,,,
+NY Nightmares,NYN,Safety Sam,TE,Security TE,29,C,-0.01,11.9,2,,,,,,,,,
+Boston Bricklayers,BOS,Manager Mike,QB,Game Manager,30,C,0.0,54.68,2,,,,,,,,,
+Boston Bricklayers,BOS,Grinder Greg,RB,Bell Cow RB,26,B,0.03,47.7,2,,,,,,,,,
+Boston Bricklayers,BOS,Slot Steve,WR,Slot Machine,24,B,0.01,48.2,2,,,,,,,,,
+Boston Bricklayers,BOS,Possession Paul,WR,Alpha WR,28,B,0.05,87.6,2,,,,,,,,,
+Boston Bricklayers,BOS,Blocking Bob,TE,Security TE,31,D,-0.05,23.799999999999997,2,,,,,,,,,
+Miami Machines,MIA,Balanced Bill,QB,Game Manager,23,B,0.02,58.04,2,,,,,,,,,
+Miami Machines,MIA,All-Round Al,RB,Bell Cow RB,25,A,0.08,27.2,2,,,,,,,,,
+Miami Machines,MIA,Star Stu,WR,Alpha WR,22,A,0.04,69.3,2,,,,,,,,,
+Miami Machines,MIA,Speedy Steve,WR,Deep Threat,24,C,0.01,50.5,2,,,,,,,,,
+Miami Machines,MIA,Reliable Rob,TE,Security TE,27,C,0.0,27.200000000000003,2,,,,,,,,,
+Chicago Crushers,CHI,Konami Karl,QB,Konami Code,21,A,0.0,24.08,2,,,,,,,,,
+Chicago Crushers,CHI,Power Pete,RB,Bell Cow RB,24,B,0.03,27.8,2,,,,,,,,,
+Chicago Crushers,CHI,Blocker Ben,WR,Slot Machine,29,C,-0.02,25.6,2,,,,,,,,,
+Chicago Crushers,CHI,Fast Fred,WR,Deep Threat,22,B,0.01,51.2,2,,,,,,,,,
+Chicago Crushers,CHI,Big Barry,TE,Unicorn TE,26,A,0.09,18.1,2,,,,,,,,,
+Los Angeles Leos,LAL,Jared Jackson,QB,Gunslinger,33,B,0.0522009619892585,30.0,2,450.0,3.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
+Los Angeles Leos,LAL,Geno Rodgers,RB,Home Run RB,34,C,0.0417080933779597,14.4,2,0.0,0.0,0.0,84.0,1.0,0.0,0.0,0.0,0.0
+Los Angeles Leos,LAL,Mac Jones,RB,Bell Cow RB,33,C,0.0553169605485436,10.7,2,0.0,0.0,0.0,67.0,0.0,10.0,0.0,3.0,10.0
+Los Angeles Leos,LAL,Joe Watson,RB,Home Run RB,21,C,0.0097065748186953,0.7,1,0.0,0.0,0.0,7.0,0.0,0.0,0.0,0.0,0.0
+Los Angeles Leos,LAL,Gardner Tagovailoa,WR,Alpha WR,21,C,0.0345748585492178,16.3,2,0.0,0.0,0.0,0.0,0.0,63.0,1.0,4.0,8.0
+Los Angeles Leos,LAL,Russell Watson,WR,Slot Machine,32,C,0.0633383593877709,10.1,2,0.0,0.0,0.0,0.0,0.0,31.0,0.0,7.0,9.0
+Los Angeles Leos,LAL,Josh Fast,WR,Deep Threat,21,D,-0.0184978742117537,0.0,0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
+Los Angeles Leos,LAL,Sam Howell,WR,Deep Threat,24,B,0.1490118743507343,53.0,2,0.0,0.0,0.0,0.0,0.0,300.0,2.0,11.0,21.0
+Los Angeles Leos,LAL,Luka Levis,WR,Alpha WR,31,A,0.0076500452419346,0.0,0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
+Los Angeles Leos,LAL,CJ Bolt,TE,Security TE,35,C,0.0483995989881057,0.0,0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
+Los Angeles Leos,LAL,Matthew Pickett,TE,Security TE,25,C,0.1013137958109754,10.6,2,0.0,0.0,0.0,0.0,0.0,46.0,0.0,6.0,9.0
+Los Angeles Leos,LAL,Los Angeles Leos Defense,DEF,Balanced,0,C,0.1234411437757709,0.0,0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
+San Diego Surfers,SD,Tyson Cousins,QB,Konami Code,28,B,0.1185510969161161,58.4,2,710.0,8.0,1.0,0.0,0.0,0.0,0.0,0.0,0.0
+San Diego Surfers,SD,LeBron Jackson,RB,Bell Cow RB,32,B,0.0117977474786678,1.2,2,0.0,0.0,0.0,12.0,0.0,0.0,0.0,0.0,0.0
+San Diego Surfers,SD,Bryce Tagovailoa,RB,Home Run RB,32,C,0.1317119057793401,18.200000000000003,2,0.0,0.0,0.0,68.0,0.0,24.0,0.0,9.0,9.0
+San Diego Surfers,SD,Deshaun Minshew,RB,Bell Cow RB,32,C,0.08758028304822,12.3,2,0.0,0.0,0.0,63.0,1.0,0.0,0.0,0.0,0.0
+San Diego Surfers,SD,Aaron Purdy,WR,Alpha WR,32,B,0.0686824589119274,0.0,0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
+San Diego Surfers,SD,Russell Tannehill,WR,Slot Machine,23,C,0.0774106436113609,22.2,2,0.0,0.0,0.0,0.0,0.0,122.0,0.0,10.0,11.0
+San Diego Surfers,SD,Kenny Richardson,WR,Deep Threat,25,C,0.1317815336634089,73.30000000000001,2,0.0,0.0,0.0,0.0,0.0,313.0,5.0,12.0,22.0
+San Diego Surfers,SD,Ryan Strong,WR,Alpha WR,32,D,-0.0390217609330004,0.0,0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
+San Diego Surfers,SD,Kobe Wilson,WR,Slot Machine,29,A,0.101960865034797,46.8,2,0.0,0.0,0.0,0.0,0.0,148.0,3.0,14.0,16.0
+San Diego Surfers,SD,Aaron Wise,TE,Security TE,22,C,0.0655188693719647,0.0,0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
+San Diego Surfers,SD,Kirk Purdy,TE,Security TE,30,A,0.1247202267439834,21.299999999999997,2,0.0,0.0,0.0,0.0,0.0,103.0,0.0,11.0,11.0
+San Diego Surfers,SD,San Diego Surfers Defense,DEF,No Fly Zone,0,B,0.1314138543228705,-2.0,1,0.0,0.0,1.0,0.0,0.0,0.0,0.0,0.0,0.0
+Portland Pioneers,POR,Patrick Goff,QB,Game Manager,31,B,0.1367961764944238,46.04,2,751.0,4.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
+Portland Pioneers,POR,Zion Stafford,RB,Bell Cow RB,28,C,0.1170681711448769,40.900000000000006,2,0.0,0.0,0.0,169.0,3.0,10.0,0.0,5.0,6.0
+Portland Pioneers,POR,Matthew Mahomes,RB,Bell Cow RB,27,C,0.0568956068385871,9.9,2,0.0,0.0,0.0,39.0,1.0,0.0,0.0,0.0,0.0
+Portland Pioneers,POR,Baker Wilson,RB,Bell Cow RB,28,C,-0.0244714470604807,8.0,2,0.0,0.0,0.0,20.0,1.0,0.0,0.0,0.0,0.0
+Portland Pioneers,POR,Josh Herbert,WR,Deep Threat,23,C,0.0070669506638041,0.0,0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
+Portland Pioneers,POR,Luka Stroud,WR,Deep Threat,26,B,0.0346129298258969,20.9,2,0.0,0.0,0.0,0.0,0.0,109.0,1.0,4.0,5.0
+Portland Pioneers,POR,Anthony Goff,WR,Alpha WR,21,A,0.0200892711001577,0.0,0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
+Portland Pioneers,POR,Jimmy Wise,WR,Alpha WR,27,D,0.1424630874584239,66.7,2,0.0,0.0,0.0,0.0,0.0,327.0,2.0,22.0,23.0
+Portland Pioneers,POR,Tua Wilson,WR,Alpha WR,27,A,0.0668334738979068,41.1,2,0.0,0.0,0.0,0.0,0.0,211.0,1.0,14.0,16.0
+Portland Pioneers,POR,Sam Tannehill,TE,Security TE,23,A,-0.0419538816263491,0.0,0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
+Portland Pioneers,POR,Kobe Murray,TE,Security TE,28,C,0.1128121178164002,22.4,2,0.0,0.0,0.0,0.0,0.0,94.0,0.0,13.0,13.0
+Portland Pioneers,POR,Portland Pioneers Defense,DEF,Blitz Heavy,0,D,-0.0464437545526737,-2.0,1,0.0,0.0,1.0,0.0,0.0,0.0,0.0,0.0,0.0
+Seattle Sasquatch,SEA,Josh Watson,QB,Gunslinger,33,C,0.0233228931582087,33.12,2,478.0,4.0,1.0,0.0,0.0,0.0,0.0,0.0,0.0
+Seattle Sasquatch,SEA,Tua Howell,RB,Home Run RB,21,A,0.0908224056739097,6.2,2,0.0,0.0,0.0,62.0,0.0,0.0,0.0,0.0,0.0
+Seattle Sasquatch,SEA,Dak Prescott,RB,Home Run RB,24,C,-0.0365772448949063,0.3,1,0.0,0.0,0.0,3.0,0.0,0.0,0.0,0.0,0.0
+Seattle Sasquatch,SEA,Tua Garoppolo,RB,Home Run RB,32,A,0.1385264567322175,30.4,2,0.0,0.0,0.0,108.0,2.0,26.0,0.0,5.0,7.0
+Seattle Sasquatch,SEA,Anthony Smith,WR,Alpha WR,31,C,0.110200977622374,23.799999999999997,2,0.0,0.0,0.0,0.0,0.0,148.0,0.0,9.0,21.0
+Seattle Sasquatch,SEA,Deshaun Tannehill,WR,Alpha WR,21,D,0.056292216418512,0.0,0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
+Seattle Sasquatch,SEA,Sam Goff,WR,Alpha WR,29,C,0.098635426853436,48.9,2,0.0,0.0,0.0,0.0,0.0,149.0,4.0,10.0,12.0
+Seattle Sasquatch,SEA,Kyler Howell,WR,Deep Threat,21,C,0.0706083126036959,0.0,0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
+Seattle Sasquatch,SEA,Tyson Goff,WR,Alpha WR,30,C,0.0729354296914193,8.6,2,0.0,0.0,0.0,0.0,0.0,46.0,0.0,4.0,5.0
+Seattle Sasquatch,SEA,Tua Stroud,TE,Security TE,24,A,0.0285200134099664,0.0,0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
+Seattle Sasquatch,SEA,LeBron Levis,TE,Unicorn TE,33,A,0.0880230475779322,18.9,2,0.0,0.0,0.0,0.0,0.0,109.0,0.0,8.0,13.0
+Seattle Sasquatch,SEA,Seattle Sasquatch Defense,DEF,Balanced,0,A,0.0927976564250349,-2.0,1,0.0,0.0,1.0,0.0,0.0,0.0,0.0,0.0,0.0
+Vegas Vipers,LV,LeBron Watson,QB,Gunslinger,27,B,-0.0183350212601399,38.32,2,558.0,4.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
+Vegas Vipers,LV,Zion Jackson,RB,Home Run RB,22,D,0.1205329020846825,12.2,2,0.0,0.0,0.0,65.0,0.0,7.0,0.0,5.0,9.0
+Vegas Vipers,LV,Mac Smith,RB,Home Run RB,21,C,-0.0362738044370706,2.3,2,0.0,0.0,0.0,23.0,0.0,0.0,0.0,0.0,0.0
+Vegas Vipers,LV,Deshaun Rodgers,RB,Home Run RB,25,C,0.0014228226110372,0.8,2,0.0,0.0,0.0,8.0,0.0,0.0,0.0,0.0,0.0
+Vegas Vipers,LV,Deshaun Stroud,WR,Alpha WR,35,A,0.0382961690203322,0.0,0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
+Vegas Vipers,LV,Baker Wilson Jr.,WR,Deep Threat,29,B,0.1438678971935906,52.6,2,0.0,0.0,0.0,0.0,0.0,336.0,1.0,13.0,17.0
+Vegas Vipers,LV,Anthony Wilson,WR,Slot Machine,24,D,-0.0038365258809487,0.0,0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
+Vegas Vipers,LV,Geno Young,WR,Slot Machine,34,A,0.0438905796380223,14.6,2,0.0,0.0,0.0,0.0,0.0,36.0,1.0,5.0,5.0
+Vegas Vipers,LV,Kenny Watson,WR,Deep Threat,30,A,0.1393622899170821,31.1,2,0.0,0.0,0.0,0.0,0.0,141.0,2.0,5.0,9.0
+Vegas Vipers,LV,Ryan Minshew,TE,Unicorn TE,30,D,-0.0108487430632736,0.0,0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
+Vegas Vipers,LV,Jared Purdy,TE,Security TE,22,B,0.1182437873673064,10.8,2,0.0,0.0,0.0,0.0,0.0,38.0,0.0,7.0,7.0
+Vegas Vipers,LV,Vegas Vipers Defense,DEF,No Fly Zone,0,A,0.1025320426420505,-2.0,1,0.0,0.0,1.0,0.0,0.0,0.0,0.0,0.0,0.0
+Salt Lake Stags,SLC,Tyson Jones,QB,Game Manager,32,C,0.1440538281561829,24.32,2,508.0,1.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
+Salt Lake Stags,SLC,Baker Wise,RB,Home Run RB,28,D,0.0617370648917957,49.0,2,0.0,0.0,0.0,179.0,3.0,11.0,1.0,6.0,6.0
+Salt Lake Stags,SLC,Jalen Murray,RB,Home Run RB,30,A,-0.0254866796539956,1.5,2,0.0,0.0,0.0,15.0,0.0,0.0,0.0,0.0,0.0
+Salt Lake Stags,SLC,Bryce Garoppolo,RB,Home Run RB,27,D,-0.0497029236606922,8.600000000000001,2,0.0,0.0,0.0,26.0,1.0,0.0,0.0,0.0,0.0
+Salt Lake Stags,SLC,Jared Herbert,WR,Alpha WR,27,C,0.1250013477914346,26.5,2,0.0,0.0,0.0,0.0,0.0,155.0,0.0,11.0,13.0
+Salt Lake Stags,SLC,Tua Young,WR,Alpha WR,32,A,0.1449951064256662,39.5,2,0.0,0.0,0.0,0.0,0.0,235.0,0.0,16.0,19.0
+Salt Lake Stags,SLC,Luka Strong,WR,Alpha WR,29,B,-0.0065769417873327,0.0,0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
+Salt Lake Stags,SLC,Dak Cousins,WR,Slot Machine,27,D,0.0740266308720998,10.8,2,0.0,0.0,0.0,0.0,0.0,58.0,0.0,5.0,7.0
+Salt Lake Stags,SLC,Kobe Goff,WR,Slot Machine,22,D,0.0627889109521837,0.0,0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
+Salt Lake Stags,SLC,Russell Tannehill Jr.,TE,Security TE,23,C,-0.0031673156751819,11.9,2,0.0,0.0,0.0,0.0,0.0,49.0,0.0,7.0,8.0
+Salt Lake Stags,SLC,Baker Lawrence,TE,Unicorn TE,23,D,-0.0253214694681122,0.0,0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
+Salt Lake Stags,SLC,Salt Lake Stags Defense,DEF,Steel Curtain,0,C,0.0263502858386676,-2.0,1,0.0,0.0,1.0,0.0,0.0,0.0,0.0,0.0,0.0
+Phoenix Firebirds,PHX,Jalen Cousins,QB,Gunslinger,23,A,-0.0203345535634025,12.6,2,315.0,2.0,4.0,0.0,0.0,0.0,0.0,0.0,0.0
+Phoenix Firebirds,PHX,Mac Stroud,RB,Home Run RB,25,C,0.1349505972062233,18.9,2,0.0,0.0,0.0,95.0,1.0,4.0,0.0,3.0,7.0
+Phoenix Firebirds,PHX,Trevor Jackson,RB,Bell Cow RB,32,A,0.0711629103739107,1.5,2,0.0,0.0,0.0,15.0,0.0,0.0,0.0,0.0,0.0
+Phoenix Firebirds,PHX,Jalen Smith,RB,Home Run RB,22,C,0.0909559608886195,2.2,2,0.0,0.0,0.0,22.0,0.0,0.0,0.0,0.0,0.0
+Phoenix Firebirds,PHX,Tua Mayfield,WR,Deep Threat,21,A,-0.018138679681797,0.0,0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
+Phoenix Firebirds,PHX,Kenny Purdy,WR,Deep Threat,22,A,0.0302855203850517,6.9,2,0.0,0.0,0.0,0.0,0.0,49.0,0.0,2.0,8.0
+Phoenix Firebirds,PHX,Kirk Stafford,WR,Alpha WR,28,C,0.0169425770536388,0.0,0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
+Phoenix Firebirds,PHX,Patrick Smith,WR,Deep Threat,27,A,0.0749047706492865,45.5,2,0.0,0.0,0.0,0.0,0.0,245.0,2.0,9.0,14.0
+Phoenix Firebirds,PHX,Mac Burrow,WR,Slot Machine,27,C,0.0275874901720027,2.7,1,0.0,0.0,0.0,0.0,0.0,17.0,0.0,1.0,1.0
+Phoenix Firebirds,PHX,Derek Richardson,TE,Security TE,23,A,-0.000242043177795,0.0,0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
+Phoenix Firebirds,PHX,Sam Watson,TE,Unicorn TE,27,B,0.0230360495098801,0.0,2,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,6.0
+Phoenix Firebirds,PHX,Phoenix Firebirds Defense,DEF,Balanced,0,A,-0.0433961141045849,0.0,0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
+Denver Peaks,DEN,LeBron Lawrence,QB,Konami Code,29,A,-0.044052164309656,17.04,1,226.0,2.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
+Denver Peaks,DEN,Mac Strong,RB,Bell Cow RB,30,B,-0.032298425618082,8.5,1,0.0,0.0,0.0,25.0,1.0,0.0,0.0,0.0,0.0
+Denver Peaks,DEN,CJ Rodgers,RB,Home Run RB,24,C,0.0099258781406717,-0.1,1,0.0,0.0,0.0,-1.0,0.0,0.0,0.0,0.0,0.0
+Denver Peaks,DEN,Tyson Young,RB,Home Run RB,35,C,0.0238515098934378,11.1,1,0.0,0.0,0.0,61.0,0.0,20.0,0.0,3.0,6.0
+Denver Peaks,DEN,Lamar Prescott,WR,Deep Threat,32,C,-0.0225019829991125,0.0,0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
+Denver Peaks,DEN,CJ Howell,WR,Alpha WR,23,C,0.1055394736670644,7.1,1,0.0,0.0,0.0,0.0,0.0,41.0,0.0,3.0,4.0
+Denver Peaks,DEN,Luka Murray,WR,Slot Machine,31,A,-0.0100497330085783,0.0,0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
+Denver Peaks,DEN,Jalen Burrow,WR,Deep Threat,33,C,0.1477458422755261,21.0,1,0.0,0.0,0.0,0.0,0.0,110.0,1.0,4.0,6.0
+Denver Peaks,DEN,Luka Smith,WR,Slot Machine,30,B,0.0894342535987425,10.1,1,0.0,0.0,0.0,0.0,0.0,21.0,1.0,2.0,3.0
+Denver Peaks,DEN,Jimmy Herbert,TE,Security TE,32,C,-0.0055029770799474,6.4,1,0.0,0.0,0.0,0.0,0.0,34.0,0.0,3.0,4.0
+Denver Peaks,DEN,Geno Richardson,TE,Unicorn TE,21,B,-0.016204102144211,0.0,0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
+Denver Peaks,DEN,Denver Peaks Defense,DEF,Blitz Heavy,0,C,0.0154980370710582,0.0,0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
+Austin Outlaws,AUS,Trevor Pickett,QB,Konami Code,34,B,0.0397165682518177,21.2,2,530.0,2.0,4.0,0.0,0.0,0.0,0.0,0.0,0.0
+Austin Outlaws,AUS,Jared Fast,RB,Bell Cow RB,23,D,-0.0444482451440093,0.0,0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
+Austin Outlaws,AUS,Kyler Carr,RB,Home Run RB,35,C,0.0235424412996304,-0.8999999999999999,2,0.0,0.0,0.0,-9.0,0.0,0.0,0.0,0.0,0.0
+Austin Outlaws,AUS,Will Mahomes,RB,Home Run RB,23,D,0.115296758441528,20.7,2,0.0,0.0,0.0,68.0,1.0,19.0,0.0,6.0,10.0
+Austin Outlaws,AUS,Derek Minshew,WR,Deep Threat,23,D,0.1319440680620515,43.4,2,0.0,0.0,0.0,0.0,0.0,284.0,1.0,9.0,16.0
+Austin Outlaws,AUS,Ryan Mayfield,WR,Deep Threat,23,C,0.0262761944110529,0.0,0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
+Austin Outlaws,AUS,Jared Howell,WR,Alpha WR,31,C,0.1277920541179807,32.2,2,0.0,0.0,0.0,0.0,0.0,162.0,1.0,10.0,15.0
+Austin Outlaws,AUS,Patrick Cousins,WR,Deep Threat,34,C,0.0644272432866132,0.0,0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
+Austin Outlaws,AUS,LeBron Fast,WR,Slot Machine,35,C,0.0828283433525014,1.8,2,0.0,0.0,0.0,0.0,0.0,8.0,0.0,1.0,3.0
+Austin Outlaws,AUS,Tua Pickett,TE,Security TE,30,A,0.0722821844111327,0.0,0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
+Austin Outlaws,AUS,Jalen Jackson,TE,Unicorn TE,23,C,0.1048968669611648,8.7,2,0.0,0.0,0.0,0.0,0.0,57.0,0.0,3.0,5.0
+Austin Outlaws,AUS,Austin Outlaws Defense,DEF,Balanced,0,B,-0.0152792402941643,0.0,0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
+San Antonio Sheriffs,SAS,Trevor Watson,QB,Konami Code,26,C,0.1237772679648343,29.56,2,389.0,4.0,1.0,0.0,0.0,0.0,0.0,0.0,0.0
+San Antonio Sheriffs,SAS,Anthony Minshew,RB,Home Run RB,24,C,0.0811773182933373,42.8,2,0.0,0.0,0.0,184.0,1.0,44.0,1.0,8.0,14.0
+San Antonio Sheriffs,SAS,CJ Howell Jr.,RB,Home Run RB,26,A,0.0307888859071748,3.2,2,0.0,0.0,0.0,32.0,0.0,0.0,0.0,0.0,0.0
+San Antonio Sheriffs,SAS,Kobe Goff Jr.,RB,Bell Cow RB,21,C,-0.0164388881125307,1.6,2,0.0,0.0,0.0,16.0,0.0,0.0,0.0,0.0,0.0
+San Antonio Sheriffs,SAS,Ryan Levis,WR,Slot Machine,25,B,0.1172514479017815,48.2,2,0.0,0.0,0.0,0.0,0.0,182.0,2.0,18.0,23.0
+San Antonio Sheriffs,SAS,Tyson Howell,WR,Deep Threat,25,C,-0.0123443471538029,0.0,0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
+San Antonio Sheriffs,SAS,Jalen Stafford,WR,Deep Threat,23,A,0.0611680021650131,17.6,2,0.0,0.0,0.0,0.0,0.0,86.0,1.0,3.0,11.0
+San Antonio Sheriffs,SAS,Geno Jackson,WR,Deep Threat,27,B,-0.011732650133003,0.0,0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
+San Antonio Sheriffs,SAS,Josh Smith,WR,Slot Machine,30,A,0.0128788089673063,6.0,2,0.0,0.0,0.0,0.0,0.0,30.0,0.0,3.0,5.0
+San Antonio Sheriffs,SAS,Luka Richardson,TE,Security TE,35,C,-0.0425170321393557,0.0,0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
+San Antonio Sheriffs,SAS,Matthew Allen,TE,Security TE,34,C,0.0980366350691741,10.7,2,0.0,0.0,0.0,0.0,0.0,47.0,0.0,6.0,8.0
+San Antonio Sheriffs,SAS,San Antonio Sheriffs Defense,DEF,Balanced,0,D,0.0636183629399358,0.0,0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
+Oklahoma Bisons,OKC,Geno Burrow,QB,Gunslinger,34,D,0.1395768799550319,32.96,2,574.0,3.0,1.0,0.0,0.0,0.0,0.0,0.0,0.0
+Oklahoma Bisons,OKC,Jared Carr,RB,Bell Cow RB,29,D,0.0313512326788896,0.0,0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
+Oklahoma Bisons,OKC,Jalen Burrow Jr.,RB,Home Run RB,35,A,0.1244484670414128,26.4,2,0.0,0.0,0.0,94.0,2.0,20.0,0.0,3.0,7.0
+Oklahoma Bisons,OKC,Lamar Tannehill,RB,Home Run RB,24,C,0.0987728126827321,15.1,2,0.0,0.0,0.0,91.0,1.0,0.0,0.0,0.0,0.0
+Oklahoma Bisons,OKC,Luka Mahomes,WR,Alpha WR,22,B,0.0735187093867319,31.1,2,0.0,0.0,0.0,0.0,0.0,151.0,1.0,10.0,16.0
+Oklahoma Bisons,OKC,Joe Bolt,WR,Alpha WR,26,D,-0.0035497527614135,0.0,0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
+Oklahoma Bisons,OKC,Sam Prescott,WR,Slot Machine,24,A,-0.0078162137378245,0.0,0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
+Oklahoma Bisons,OKC,Aaron Young,WR,Alpha WR,32,C,0.0623569599686884,19.5,2,0.0,0.0,0.0,0.0,0.0,75.0,1.0,6.0,7.0
+Oklahoma Bisons,OKC,Zion Strong,WR,Alpha WR,28,C,0.1317000769463126,34.1,2,0.0,0.0,0.0,0.0,0.0,171.0,1.0,11.0,20.0
+Oklahoma Bisons,OKC,Mac Goff,TE,Security TE,23,D,-0.0347207991925936,0.0,0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
+Oklahoma Bisons,OKC,Deshaun Rodgers Jr.,TE,Unicorn TE,32,B,0.0485056840133066,27.700000000000003,2,0.0,0.0,0.0,0.0,0.0,157.0,0.0,12.0,14.0
+Oklahoma Bisons,OKC,Oklahoma Bisons Defense,DEF,No Fly Zone,0,C,0.0056876322032079,-6.0,2,0.0,0.0,3.0,0.0,0.0,0.0,0.0,0.0,0.0
+New Orleans Voodoo,NOLA,Mac Pickett,QB,Gunslinger,26,D,-0.0228446365456722,38.96,2,624.0,4.0,1.0,0.0,0.0,0.0,0.0,0.0,0.0
+New Orleans Voodoo,NOLA,Justin Wise,RB,Home Run RB,23,D,0.0122768712202397,11.8,2,0.0,0.0,0.0,58.0,1.0,0.0,0.0,0.0,0.0
+New Orleans Voodoo,NOLA,Kirk Watson,RB,Bell Cow RB,35,C,0.0038893809545541,0.0,0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
+New Orleans Voodoo,NOLA,Joe Smith,RB,Home Run RB,31,C,0.0500769163116277,32.0,2,0.0,0.0,0.0,117.0,2.0,33.0,0.0,5.0,7.0
+New Orleans Voodoo,NOLA,Kenny Wise,WR,Deep Threat,32,C,0.0973179586848217,37.7,2,0.0,0.0,0.0,0.0,0.0,187.0,2.0,7.0,17.0
+New Orleans Voodoo,NOLA,LeBron Burrow,WR,Alpha WR,22,D,0.0304575655181746,0.0,0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
+New Orleans Voodoo,NOLA,Tua Carr,WR,Deep Threat,21,C,0.0527061073809402,11.9,2,0.0,0.0,0.0,0.0,0.0,89.0,0.0,3.0,4.0
+New Orleans Voodoo,NOLA,Deshaun Howell,WR,Alpha WR,32,C,0.1434276892163605,47.5,2,0.0,0.0,0.0,0.0,0.0,215.0,2.0,14.0,20.0
+New Orleans Voodoo,NOLA,Patrick Levis,WR,Alpha WR,23,B,-0.004957623882497,0.0,0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
+New Orleans Voodoo,NOLA,Kenny Bolt,TE,Unicorn TE,22,C,0.1262040049825845,17.0,2,0.0,0.0,0.0,0.0,0.0,100.0,0.0,7.0,11.0
+New Orleans Voodoo,NOLA,Will Carr,TE,Unicorn TE,27,C,0.043862669525429,0.0,0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
+New Orleans Voodoo,NOLA,New Orleans Voodoo Defense,DEF,Balanced,0,B,-0.0282724362141416,-2.0,1,0.0,0.0,1.0,0.0,0.0,0.0,0.0,0.0,0.0
+Memphis Kings,MEM,Patrick Pickett,QB,Konami Code,33,C,0.0025215421701616,30.76,2,569.0,3.0,2.0,0.0,0.0,0.0,0.0,0.0,0.0
+Memphis Kings,MEM,Jimmy Rodgers,RB,Home Run RB,31,B,0.0336617569320433,8.1,2,0.0,0.0,0.0,21.0,1.0,0.0,0.0,0.0,0.0
+Memphis Kings,MEM,Zion Burrow,RB,Bell Cow RB,27,A,-0.018671933378594,0.0,0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
+Memphis Kings,MEM,Jimmy Wilson,RB,Bell Cow RB,31,C,0.0737349139360585,17.9,2,0.0,0.0,0.0,95.0,1.0,4.0,0.0,2.0,7.0
+Memphis Kings,MEM,Aaron Hurts,WR,Alpha WR,31,C,-0.0012017620168569,0.0,0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
+Memphis Kings,MEM,LeBron Hurts,WR,Slot Machine,30,C,0.0324315416618988,0.0,0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
+Memphis Kings,MEM,Deshaun Stroud Jr.,WR,Slot Machine,34,D,0.1129855675585993,48.8,2,0.0,0.0,0.0,0.0,0.0,258.0,0.0,23.0,29.0
+Memphis Kings,MEM,CJ Richardson,WR,Alpha WR,23,C,0.1110496266484489,39.3,2,0.0,0.0,0.0,0.0,0.0,203.0,1.0,13.0,17.0
+Memphis Kings,MEM,Tyson Allen,WR,Slot Machine,32,C,0.0762993743006789,15.7,2,0.0,0.0,0.0,0.0,0.0,47.0,1.0,5.0,7.0
+Memphis Kings,MEM,Deshaun Strong,TE,Security TE,25,A,0.0148886758332203,20.700000000000003,2,0.0,0.0,0.0,0.0,0.0,57.0,1.0,9.0,11.0
+Memphis Kings,MEM,Will Herbert,TE,Unicorn TE,32,B,0.0137980341002798,0.0,0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
+Memphis Kings,MEM,Memphis Kings Defense,DEF,Blitz Heavy,0,C,-0.0427218385667052,-2.0,1,0.0,0.0,1.0,0.0,0.0,0.0,0.0,0.0,0.0
+Nashville Notes,NSH,Tua Rodgers,QB,Gunslinger,24,B,-0.0380806942205744,24.52,2,413.0,3.0,2.0,0.0,0.0,0.0,0.0,0.0,0.0
+Nashville Notes,NSH,Anthony Hurts,RB,Bell Cow RB,33,C,0.0081362559588132,0.3,1,0.0,0.0,0.0,3.0,0.0,0.0,0.0,0.0,0.0
+Nashville Notes,NSH,Tyson Strong,RB,Bell Cow RB,22,A,0.0234746445998151,13.2,2,0.0,0.0,0.0,72.0,1.0,0.0,0.0,0.0,4.0
+Nashville Notes,NSH,Tyson Burrow,RB,Bell Cow RB,32,C,0.0198878409758625,2.8,2,0.0,0.0,0.0,28.0,0.0,0.0,0.0,0.0,0.0
+Nashville Notes,NSH,Russell Levis,WR,Deep Threat,22,B,0.114656033053769,44.4,2,0.0,0.0,0.0,0.0,0.0,194.0,3.0,7.0,13.0
+Nashville Notes,NSH,Tua Pickett Jr.,WR,Alpha WR,21,C,-0.0086559557015613,0.0,0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
+Nashville Notes,NSH,Lamar Carr,WR,Alpha WR,23,C,0.0604542566201445,0.0,0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
+Nashville Notes,NSH,Ryan Bolt,WR,Alpha WR,23,A,0.0979922439753721,7.6,2,0.0,0.0,0.0,0.0,0.0,46.0,0.0,3.0,3.0
+Nashville Notes,NSH,Anthony Garoppolo,WR,Deep Threat,22,A,0.1007512958429756,15.2,2,0.0,0.0,0.0,0.0,0.0,112.0,0.0,4.0,11.0
+Nashville Notes,NSH,Derek Hurts,TE,Unicorn TE,31,B,0.0129340623859362,0.0,0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
+Nashville Notes,NSH,Gardner Minshew,TE,Security TE,21,A,0.1037761983422022,19.1,2,0.0,0.0,0.0,0.0,0.0,61.0,0.0,13.0,14.0
+Nashville Notes,NSH,Nashville Notes Defense,DEF,No Fly Zone,0,C,0.0025032444318465,-2.0,1,0.0,0.0,1.0,0.0,0.0,0.0,0.0,0.0,0.0
+Texas Rattlers,TEX,Dak Lawrence,QB,Gunslinger,30,A,0.0734252548882161,52.8,2,770.0,6.0,1.0,0.0,0.0,0.0,0.0,0.0,0.0
+Texas Rattlers,TEX,Deshaun Minshew Jr.,RB,Bell Cow RB,24,C,0.0687091837043535,13.7,2,0.0,0.0,0.0,59.0,1.0,8.0,0.0,1.0,4.0
+Texas Rattlers,TEX,Jimmy Stafford,RB,Home Run RB,34,B,0.0522078309418512,4.3,2,0.0,0.0,0.0,43.0,0.0,0.0,0.0,0.0,0.0
+Texas Rattlers,TEX,Anthony Wilson Jr.,RB,Bell Cow RB,32,C,0.0466903557505494,0.1,1,0.0,0.0,0.0,1.0,0.0,0.0,0.0,0.0,0.0
+Texas Rattlers,TEX,Bryce Herbert,WR,Slot Machine,23,A,0.1353375335408065,21.3,2,0.0,0.0,0.0,0.0,0.0,103.0,0.0,11.0,15.0
+Texas Rattlers,TEX,Gardner Minshew Jr.,WR,Deep Threat,24,C,-0.0106348414203861,0.0,0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
+Texas Rattlers,TEX,Anthony Cousins,WR,Deep Threat,31,C,0.0917992579852766,0.0,0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
+Texas Rattlers,TEX,Kobe Herbert,WR,Deep Threat,27,C,0.1027777942673875,38.5,2,0.0,0.0,0.0,0.0,0.0,245.0,1.0,8.0,12.0
+Texas Rattlers,TEX,Bryce Stroud,WR,Alpha WR,32,C,0.1444520748085638,68.9,2,0.0,0.0,0.0,0.0,0.0,319.0,3.0,19.0,28.0
+Texas Rattlers,TEX,Matthew Purdy,TE,Security TE,26,D,-0.0299348172531611,0.0,0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
+Texas Rattlers,TEX,Kenny Fast,TE,Security TE,23,C,0.131159257077305,30.5,2,0.0,0.0,0.0,0.0,0.0,95.0,2.0,9.0,9.0
+Texas Rattlers,TEX,Texas Rattlers Defense,DEF,Steel Curtain,0,D,0.0189615890573322,-2.0,1,0.0,0.0,1.0,0.0,0.0,0.0,0.0,0.0,0.0
+Louisville Legion,LOU,Jared Hurts,QB,Konami Code,29,C,0.0800223127581244,29.96,2,449.0,3.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
+Louisville Legion,LOU,Jimmy Carr,RB,Home Run RB,29,B,0.0072740759857672,0.0,1,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
+Louisville Legion,LOU,Baker Strong,RB,Bell Cow RB,21,C,0.1214034622729597,20.3,2,0.0,0.0,0.0,128.0,1.0,5.0,0.0,1.0,5.0
+Louisville Legion,LOU,Will Richardson,RB,Home Run RB,31,A,0.081932441716605,9.6,2,0.0,0.0,0.0,36.0,1.0,0.0,0.0,0.0,0.0
+Louisville Legion,LOU,Joe Levis,WR,Alpha WR,28,C,-0.0326808327663711,0.0,0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
+Louisville Legion,LOU,Gardner Strong,WR,Alpha WR,33,A,0.1020605746703621,42.8,2,0.0,0.0,0.0,0.0,0.0,198.0,2.0,11.0,16.0
+Louisville Legion,LOU,Jared Richardson,WR,Alpha WR,33,B,0.0192345966249442,0.0,0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
+Louisville Legion,LOU,Jared Lawrence,WR,Alpha WR,32,C,0.0311807522777291,11.1,2,0.0,0.0,0.0,0.0,0.0,61.0,0.0,5.0,11.0
+Louisville Legion,LOU,Patrick Lawrence,WR,Slot Machine,31,C,0.0446375381490531,25.2,2,0.0,0.0,0.0,0.0,0.0,92.0,1.0,10.0,12.0
+Louisville Legion,LOU,Luka Watson,TE,Unicorn TE,33,C,-0.0370551647647536,0.0,0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
+Louisville Legion,LOU,Will Burrow,TE,Unicorn TE,30,B,0.1155410164393777,15.3,2,0.0,0.0,0.0,0.0,0.0,93.0,0.0,6.0,8.0
+Louisville Legion,LOU,Louisville Legion Defense,DEF,No Fly Zone,0,B,-0.0410316702649721,-2.0,1,0.0,0.0,1.0,0.0,0.0,0.0,0.0,0.0,0.0
+Detroit Diesels,DET,Will Minshew,QB,Konami Code,27,C,0.0639362387211501,33.12,2,478.0,4.0,1.0,0.0,0.0,0.0,0.0,0.0,0.0
+Detroit Diesels,DET,Aaron Hurts Jr.,RB,Bell Cow RB,35,A,0.1412769514062599,26.200000000000003,2,0.0,0.0,0.0,132.0,1.0,10.0,0.0,6.0,14.0
+Detroit Diesels,DET,Tyson Levis,RB,Bell Cow RB,34,C,0.0370046839592442,3.1,2,0.0,0.0,0.0,31.0,0.0,0.0,0.0,0.0,0.0
+Detroit Diesels,DET,CJ Jones,RB,Bell Cow RB,33,D,-0.0055363956997463,0.3,2,0.0,0.0,0.0,3.0,0.0,0.0,0.0,0.0,0.0
+Detroit Diesels,DET,Will Mayfield,WR,Slot Machine,25,C,0.1214205733980958,22.0,2,0.0,0.0,0.0,0.0,0.0,80.0,1.0,8.0,10.0
+Detroit Diesels,DET,Gardner Bolt,WR,Deep Threat,27,D,0.0347429894203318,0.0,0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
+Detroit Diesels,DET,Derek Stroud,WR,Slot Machine,30,C,0.1119871693628924,11.2,2,0.0,0.0,0.0,0.0,0.0,52.0,0.0,6.0,6.0
+Detroit Diesels,DET,Kirk Hurts,WR,Slot Machine,25,C,0.1426511567461968,60.400000000000006,2,0.0,0.0,0.0,0.0,0.0,234.0,2.0,25.0,29.0
+Detroit Diesels,DET,Justin Bolt,WR,Deep Threat,35,A,-0.0236556671245145,0.0,0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
+Detroit Diesels,DET,Luka Burrow,TE,Security TE,34,D,-0.0497989686076535,0.0,0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
+Detroit Diesels,DET,Jimmy Allen,TE,Unicorn TE,22,B,-0.0117990453630379,24.200000000000003,2,0.0,0.0,0.0,0.0,0.0,102.0,1.0,8.0,14.0
+Detroit Diesels,DET,Detroit Diesels Defense,DEF,Blitz Heavy,0,C,0.1449870857322115,-2.0,1,0.0,0.0,1.0,0.0,0.0,0.0,0.0,0.0,0.0
+Milwaukee Maulers,MIL,Matthew Purdy Jr.,QB,Konami Code,31,C,0.148917835447654,22.28,2,407.0,2.0,1.0,0.0,0.0,0.0,0.0,0.0,0.0
+Milwaukee Maulers,MIL,Kenny Rodgers,RB,Bell Cow RB,32,C,-0.0371785048350212,0.0,0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
+Milwaukee Maulers,MIL,Bryce Lawrence,RB,Home Run RB,31,B,0.1360949968663092,27.700000000000003,2,0.0,0.0,0.0,128.0,2.0,9.0,0.0,2.0,3.0
+Milwaukee Maulers,MIL,Brock Tannehill,RB,Bell Cow RB,21,C,-0.0029008712390392,3.1,2,0.0,0.0,0.0,31.0,0.0,0.0,0.0,0.0,0.0
+Milwaukee Maulers,MIL,Baker Jackson,WR,Alpha WR,29,C,0.0928853164920735,12.2,2,0.0,0.0,0.0,0.0,0.0,82.0,0.0,4.0,7.0
+Milwaukee Maulers,MIL,Jared Prescott,WR,Slot Machine,27,C,0.0759787055714811,7.800000000000001,2,0.0,0.0,0.0,0.0,0.0,48.0,0.0,3.0,4.0
+Milwaukee Maulers,MIL,Gardner Burrow,WR,Deep Threat,35,A,0.0999720645538815,46.5,2,0.0,0.0,0.0,0.0,0.0,255.0,2.0,9.0,20.0
+Milwaukee Maulers,MIL,Zion Garoppolo,WR,Alpha WR,32,C,0.0193065375427322,0.0,0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
+Milwaukee Maulers,MIL,Ryan Burrow,WR,Deep Threat,34,B,-0.0140823931842592,0.0,0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
+Milwaukee Maulers,MIL,Kyler Prescott,TE,Security TE,27,C,0.0199505408739059,3.3,2,0.0,0.0,0.0,0.0,0.0,13.0,0.0,2.0,3.0
+Milwaukee Maulers,MIL,Kyler Garoppolo,TE,Security TE,30,B,0.0112682488980238,0.0,0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
+Milwaukee Maulers,MIL,Milwaukee Maulers Defense,DEF,Balanced,0,B,0.030773792797053,0.0,0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
+Toronto Thunder,TOR,Kirk Tannehill,QB,Konami Code,33,C,0.0140322466114076,38.08,2,552.0,4.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
+Toronto Thunder,TOR,Trevor Stroud,RB,Bell Cow RB,32,D,0.0631901717090881,0.5,1,0.0,0.0,0.0,5.0,0.0,0.0,0.0,0.0,0.0
+Toronto Thunder,TOR,Jared Tannehill,RB,Bell Cow RB,27,B,0.0703814794236825,4.8,2,0.0,0.0,0.0,48.0,0.0,0.0,0.0,0.0,0.0
+Toronto Thunder,TOR,Geno Herbert Jr.,RB,Home Run RB,27,D,0.1292671047503623,29.799999999999997,2,0.0,0.0,0.0,134.0,2.0,14.0,0.0,3.0,5.0
+Toronto Thunder,TOR,Tyson Purdy,WR,Alpha WR,23,C,0.0091438897148073,0.0,0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
+Toronto Thunder,TOR,Russell Bolt,WR,Alpha WR,25,A,0.1092800907977263,33.3,2,0.0,0.0,0.0,0.0,0.0,163.0,1.0,11.0,13.0
+Toronto Thunder,TOR,Jared Tagovailoa,WR,Slot Machine,31,B,0.0130547771218749,0.0,0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
+Toronto Thunder,TOR,Sam Watson Jr.,WR,Deep Threat,33,C,0.0670987784240878,40.0,2,0.0,0.0,0.0,0.0,0.0,200.0,2.0,8.0,19.0
+Toronto Thunder,TOR,Trevor Levis,WR,Alpha WR,33,D,0.0517449776025182,9.5,2,0.0,0.0,0.0,0.0,0.0,25.0,1.0,1.0,3.0
+Toronto Thunder,TOR,LeBron Tagovailoa,TE,Unicorn TE,25,C,0.1318692793359245,26.0,2,0.0,0.0,0.0,0.0,0.0,150.0,0.0,11.0,12.0
+Toronto Thunder,TOR,Josh Stafford,TE,Security TE,32,A,-0.003837824302832,0.0,0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
+Toronto Thunder,TOR,Toronto Thunder Defense,DEF,Blitz Heavy,0,C,0.1201784265032247,0.0,0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
+Montreal Mounties,MTL,Lamar Levis,QB,Konami Code,27,D,0.040938578544389,44.0,2,600.0,5.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
+Montreal Mounties,MTL,Josh Wise,RB,Bell Cow RB,32,B,0.0967586025434767,7.9,2,0.0,0.0,0.0,79.0,0.0,0.0,0.0,0.0,0.0
+Montreal Mounties,MTL,Jaylen Burrows,RB,Home Run RB,32,B,0.0313412410561945,26.4,2,0.0,0.0,0.0,94.0,2.0,20.0,0.0,3.0,7.0
+Montreal Mounties,MTL,Gardner Lawrence,RB,Home Run RB,32,C,0.1116702438362661,32.1,2,0.0,0.0,0.0,87.0,2.0,34.0,0.0,8.0,8.0
+Montreal Mounties,MTL,Kenny Mayfield,WR,Alpha WR,22,D,0.0831182426315749,24.200000000000003,2,0.0,0.0,0.0,0.0,0.0,72.0,2.0,5.0,10.0
+Montreal Mounties,MTL,Kenny Goff,WR,Slot Machine,24,A,0.1176878782486964,44.900000000000006,2,0.0,0.0,0.0,0.0,0.0,199.0,1.0,19.0,22.0
+Montreal Mounties,MTL,CJ Carr,WR,Slot Machine,29,D,0.0430377703570269,0.0,0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
+Montreal Mounties,MTL,Tyson Mayfield,WR,Alpha WR,21,B,0.1170656629956631,43.4,2,0.0,0.0,0.0,0.0,0.0,224.0,1.0,15.0,20.0
+Montreal Mounties,MTL,Matthew Herbert,WR,Slot Machine,24,B,0.0171377044675799,0.0,0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
+Montreal Mounties,MTL,Josh Fast Jr.,TE,Security TE,25,A,0.0681197390061892,0.0,0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
+Montreal Mounties,MTL,Kirk Tannehill Jr.,TE,Security TE,21,C,0.0924682339116379,25.1,2,0.0,0.0,0.0,0.0,0.0,71.0,1.0,12.0,14.0
+Montreal Mounties,MTL,Montreal Mounties Defense,DEF,No Fly Zone,0,B,0.0394059718606102,-6.0,1,0.0,0.0,3.0,0.0,0.0,0.0,0.0,0.0,0.0
+Philadelphia Cannons,PHI,Josh Jackson,QB,Game Manager,25,C,0.0880106389600134,22.08,1,252.0,3.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
+Philadelphia Cannons,PHI,CJ Young,RB,Home Run RB,32,D,0.0936958716824115,19.8,1,0.0,0.0,0.0,89.0,1.0,9.0,0.0,4.0,6.0
+Philadelphia Cannons,PHI,Zion Mayfield,RB,Home Run RB,22,C,0.0525293956944032,0.2,1,0.0,0.0,0.0,2.0,0.0,0.0,0.0,0.0,0.0
+Philadelphia Cannons,PHI,Will Purdy,RB,Home Run RB,23,A,0.006247674979626,1.8,1,0.0,0.0,0.0,18.0,0.0,0.0,0.0,0.0,0.0
+Philadelphia Cannons,PHI,Joe Minshew,WR,Deep Threat,28,D,0.0218859294984053,0.0,0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
+Philadelphia Cannons,PHI,Matthew Young,WR,Slot Machine,25,B,0.11353586647549,14.1,1,0.0,0.0,0.0,0.0,0.0,71.0,0.0,7.0,7.0
+Philadelphia Cannons,PHI,Geno Carr,WR,Slot Machine,25,B,0.0938226467335458,0.0,0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
+Philadelphia Cannons,PHI,Zion Stafford Jr.,WR,Alpha WR,31,A,0.1106835991469941,5.0,1,0.0,0.0,0.0,0.0,0.0,20.0,0.0,3.0,5.0
+Philadelphia Cannons,PHI,Brock Mahomes,WR,Slot Machine,25,A,0.1471825059898219,27.7,1,0.0,0.0,0.0,0.0,0.0,77.0,2.0,8.0,10.0
+Philadelphia Cannons,PHI,Trevor Murray,TE,Unicorn TE,25,C,0.0195595736622698,18.5,1,0.0,0.0,0.0,0.0,0.0,75.0,1.0,5.0,7.0
+Philadelphia Cannons,PHI,Jimmy Richardson,TE,Unicorn TE,29,C,-0.0469995820075546,0.0,0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
+Philadelphia Cannons,PHI,Philadelphia Cannons Defense,DEF,Balanced,0,C,-0.0098461045261976,0.0,0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
+Washington Warriors,WAS,Jalen Levis,QB,Game Manager,33,C,0.1297321494233437,47.56,2,639.0,6.0,1.0,0.0,0.0,0.0,0.0,0.0,0.0
+Washington Warriors,WAS,LeBron Murray,RB,Home Run RB,23,C,0.0779511553404698,4.8999999999999995,2,0.0,0.0,0.0,49.0,0.0,0.0,0.0,0.0,0.0
+Washington Warriors,WAS,Matthew Stroud,RB,Bell Cow RB,26,C,0.137264494471316,24.700000000000003,2,0.0,0.0,0.0,86.0,1.0,11.0,1.0,3.0,7.0
+Washington Warriors,WAS,Baker Howell,RB,Home Run RB,22,C,0.0239289948277764,1.4,1,0.0,0.0,0.0,14.0,0.0,0.0,0.0,0.0,0.0
+Washington Warriors,WAS,Gardner Jones,WR,Deep Threat,31,C,0.0628252464760646,26.5,2,0.0,0.0,0.0,0.0,0.0,145.0,1.0,6.0,8.0
+Washington Warriors,WAS,Kirk Howell,WR,Alpha WR,32,C,-0.0115296734976817,0.0,0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
+Washington Warriors,WAS,Geno Young Jr.,WR,Deep Threat,33,A,0.0958099985410868,75.2,2,0.0,0.0,0.0,0.0,0.0,372.0,4.0,14.0,19.0
+Washington Warriors,WAS,Jared Levis,WR,Alpha WR,28,D,0.0120122359328419,0.0,0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
+Washington Warriors,WAS,Derek Jones,WR,Alpha WR,26,C,0.0187529669836487,6.5,2,0.0,0.0,0.0,0.0,0.0,35.0,0.0,3.0,5.0
+Washington Warriors,WAS,Kirk Levis,TE,Security TE,32,B,-0.0300738102940968,0.0,0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
+Washington Warriors,WAS,Kenny Wise Jr.,TE,Unicorn TE,32,C,0.1072166564027695,13.6,2,0.0,0.0,0.0,0.0,0.0,76.0,0.0,6.0,8.0
+Washington Warriors,WAS,Washington Warriors Defense,DEF,No Fly Zone,0,C,0.0875425872568868,-2.0,1,0.0,0.0,1.0,0.0,0.0,0.0,0.0,0.0,0.0
+Carolina Cobras,CAR,Tyson Wise,QB,Gunslinger,31,B,0.0250412021394413,36.16,2,604.0,4.0,2.0,0.0,0.0,0.0,0.0,0.0,0.0
+Carolina Cobras,CAR,Kirk Herbert,RB,Home Run RB,30,C,0.1411381858732122,52.5,2,0.0,0.0,0.0,189.0,3.0,36.0,1.0,6.0,11.0
+Carolina Cobras,CAR,Derek Mahomes,RB,Bell Cow RB,24,C,0.0989870578435485,1.2,2,0.0,0.0,0.0,12.0,0.0,0.0,0.0,0.0,0.0
+Carolina Cobras,CAR,Brock Wise,RB,Bell Cow RB,24,A,-0.0450943309510379,0.0,1,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
+Carolina Cobras,CAR,Jimmy Pickett,WR,Alpha WR,35,A,-0.0420154031304909,0.0,0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
+Carolina Cobras,CAR,Lamar Jones,WR,Alpha WR,23,C,0.0658183235774747,4.2,1,0.0,0.0,0.0,0.0,0.0,22.0,0.0,2.0,2.0
+Carolina Cobras,CAR,Josh Hurts,WR,Alpha WR,29,D,0.0650363086268954,0.0,0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
+Carolina Cobras,CAR,Will Tagovailoa,WR,Slot Machine,34,A,0.0863541648746888,27.0,2,0.0,0.0,0.0,0.0,0.0,90.0,1.0,12.0,15.0
+Carolina Cobras,CAR,Zion Cousins,WR,Deep Threat,33,C,0.0933776755370483,58.900000000000006,2,0.0,0.0,0.0,0.0,0.0,339.0,2.0,13.0,20.0
+Carolina Cobras,CAR,Dak Smith,TE,Unicorn TE,25,C,-0.0302199710649186,0.0,0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
+Carolina Cobras,CAR,Kenny Herbert,TE,Unicorn TE,30,D,0.0435254110057941,19.7,2,0.0,0.0,0.0,0.0,0.0,117.0,0.0,8.0,14.0
+Carolina Cobras,CAR,Carolina Cobras Defense,DEF,Steel Curtain,0,B,0.0181568135849714,-2.0,1,0.0,0.0,1.0,0.0,0.0,0.0,0.0,0.0,0.0
+Florida Gators,FLA,Geno Burrow Jr.,QB,Konami Code,35,D,0.0251057772001052,28.800000000000004,2,520.0,2.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
+Florida Gators,FLA,Trevor Jones,RB,Bell Cow RB,26,C,-0.02842786533275,0.5,1,0.0,0.0,0.0,5.0,0.0,0.0,0.0,0.0,0.0
+Florida Gators,FLA,Baker Tannehill,RB,Home Run RB,30,D,0.024753349309524,16.9,2,0.0,0.0,0.0,65.0,1.0,4.0,0.0,4.0,12.0
+Florida Gators,FLA,Ryan Allen,RB,Bell Cow RB,27,D,0.0134150252814674,1.5,2,0.0,0.0,0.0,15.0,0.0,0.0,0.0,0.0,0.0
+Florida Gators,FLA,Gardner Wilson,WR,Deep Threat,31,B,0.0860138521421976,22.8,2,0.0,0.0,0.0,0.0,0.0,128.0,1.0,4.0,7.0
+Florida Gators,FLA,Anthony Jackson,WR,Deep Threat,34,A,0.0374210080695895,0.0,0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
+Florida Gators,FLA,Gardner Wilson Jr.,WR,Deep Threat,29,B,0.1111912350872604,35.2,2,0.0,0.0,0.0,0.0,0.0,262.0,0.0,9.0,15.0
+Florida Gators,FLA,Justin Goff,WR,Alpha WR,29,D,-0.0046929562332721,0.0,0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
+Florida Gators,FLA,Deshaun Tagovailoa,WR,Deep Threat,27,A,0.0845482758482742,15.6,1,0.0,0.0,0.0,0.0,0.0,66.0,1.0,3.0,6.0
+Florida Gators,FLA,Kenny Pickett,TE,Security TE,22,D,0.0375739737594326,0.0,0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
+Florida Gators,FLA,Dak Tagovailoa,TE,Security TE,22,A,0.0729571740639564,12.0,2,0.0,0.0,0.0,0.0,0.0,60.0,0.0,6.0,9.0
+Florida Gators,FLA,Florida Gators Defense,DEF,Balanced,0,C,0.0854213325816032,-2.0,1,0.0,0.0,1.0,0.0,0.0,0.0,0.0,0.0,0.0
+Atlanta Swarm,ATL,Geno Murray,QB,Game Manager,29,C,0.0761782633219712,56.44,2,711.0,7.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
+Atlanta Swarm,ATL,Zion Lawrence,RB,Home Run RB,22,C,-0.0251115641244008,11.4,2,0.0,0.0,0.0,54.0,1.0,0.0,0.0,0.0,0.0
+Atlanta Swarm,ATL,Kenny Mahomes,RB,Bell Cow RB,35,D,-0.0454136966092625,0.0,0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
+Atlanta Swarm,ATL,Luka Wise,RB,Bell Cow RB,23,C,0.0163510623430312,30.299999999999997,2,0.0,0.0,0.0,142.0,1.0,21.0,0.0,8.0,12.0
+Atlanta Swarm,ATL,Derek Pickett,WR,Slot Machine,34,C,0.1277932009441957,63.599999999999994,2,0.0,0.0,0.0,0.0,0.0,216.0,3.0,24.0,25.0
+Atlanta Swarm,ATL,CJ Wise,WR,Alpha WR,27,B,0.0079920825416726,0.0,0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
+Atlanta Swarm,ATL,Jalen Wise,WR,Deep Threat,34,A,0.0617897052178124,0.0,0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
+Atlanta Swarm,ATL,Lamar Jones Jr.,WR,Deep Threat,32,B,0.0677068445894965,18.2,2,0.0,0.0,0.0,0.0,0.0,132.0,0.0,5.0,6.0
+Atlanta Swarm,ATL,Zion Rodgers,WR,Alpha WR,28,B,0.122140496462478,64.6,2,0.0,0.0,0.0,0.0,0.0,246.0,4.0,16.0,17.0
+Atlanta Swarm,ATL,Mac Levis,TE,Security TE,31,C,0.0961805242098915,18.6,2,0.0,0.0,0.0,0.0,0.0,96.0,0.0,9.0,9.0
+Atlanta Swarm,ATL,Kobe Murray Jr.,TE,Security TE,28,B,-0.0063335115748339,0.0,0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
+Atlanta Swarm,ATL,Atlanta Swarm Defense,DEF,Blitz Heavy,0,C,0.1400313698224112,-8.0,2,0.0,0.0,4.0,0.0,0.0,0.0,0.0,0.0,0.0
+Orlando Orbit,ORL,Gardner Rodgers,QB,Gunslinger,23,B,-0.0241032668504909,26.479999999999997,2,362.0,4.0,2.0,0.0,0.0,0.0,0.0,0.0,0.0
+Orlando Orbit,ORL,Deshaun Jackson,RB,Bell Cow RB,30,A,-0.0273560278606884,0.4,1,0.0,0.0,0.0,4.0,0.0,0.0,0.0,0.0,0.0
+Orlando Orbit,ORL,Jared Bolt,RB,Home Run RB,35,D,-0.0101536096110623,2.3,2,0.0,0.0,0.0,23.0,0.0,0.0,0.0,0.0,0.0
+Orlando Orbit,ORL,Brock Murray Jr.,RB,Bell Cow RB,24,A,0.1321251855002821,10.2,2,0.0,0.0,0.0,92.0,0.0,0.0,0.0,1.0,5.0
+Orlando Orbit,ORL,Ryan Herbert,WR,Deep Threat,31,C,0.0458326714835365,27.2,2,0.0,0.0,0.0,0.0,0.0,152.0,1.0,6.0,10.0
+Orlando Orbit,ORL,Zion Allen,WR,Alpha WR,27,B,-0.0060234992117133,0.0,0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
+Orlando Orbit,ORL,Russell Rodgers,WR,Alpha WR,27,D,-0.0312924090003531,0.0,0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
+Orlando Orbit,ORL,Bryce Richardson,WR,Deep Threat,26,C,0.0397259668853595,12.8,2,0.0,0.0,0.0,0.0,0.0,48.0,1.0,2.0,5.0
+Orlando Orbit,ORL,Jimmy Wilson Jr.,WR,Alpha WR,30,D,0.0900053732739472,27.1,2,0.0,0.0,0.0,0.0,0.0,131.0,1.0,8.0,11.0
+Orlando Orbit,ORL,Will Burrow Jr.,TE,Security TE,30,C,-0.0414819166237435,0.0,0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
+Orlando Orbit,ORL,Kirk Rodgers,TE,Unicorn TE,35,C,0.0790723341913934,11.1,2,0.0,0.0,0.0,0.0,0.0,31.0,1.0,2.0,4.0
+Orlando Orbit,ORL,Orlando Orbit Defense,DEF,Balanced,0,C,-0.0137747272301978,-2.0,1,0.0,0.0,1.0,0.0,0.0,0.0,0.0,0.0,0.0
+Mexico City Diablos,MEX,Lamar Goff,QB,Game Manager,29,D,-0.021535958986566,64.72,2,718.0,9.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
+Mexico City Diablos,MEX,Patrick Bolt,RB,Bell Cow RB,25,C,0.0557323609416707,3.8,2,0.0,0.0,0.0,38.0,0.0,0.0,0.0,0.0,0.0
+Mexico City Diablos,MEX,Aaron Richardson,RB,Bell Cow RB,25,B,-0.032672753659687,0.0,2,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
+Mexico City Diablos,MEX,Baker Jackson Jr.,RB,Bell Cow RB,26,C,0.0970739714903908,32.7,2,0.0,0.0,0.0,182.0,0.0,35.0,1.0,5.0,8.0
+Mexico City Diablos,MEX,Josh Pickett,WR,Slot Machine,33,D,0.0815991938943042,16.4,2,0.0,0.0,0.0,0.0,0.0,74.0,0.0,9.0,11.0
+Mexico City Diablos,MEX,Geno Cousins,WR,Slot Machine,26,D,-0.0459935212162542,0.0,0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
+Mexico City Diablos,MEX,Will Carr Jr.,WR,Alpha WR,33,C,-0.0222714249716342,0.0,0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
+Mexico City Diablos,MEX,CJ Strong,WR,Deep Threat,33,A,0.1446628264731716,92.4,2,0.0,0.0,0.0,0.0,0.0,414.0,6.0,15.0,20.0
+Mexico City Diablos,MEX,Kenny Smith,WR,Deep Threat,25,A,0.0021251537306522,16.3,2,0.0,0.0,0.0,0.0,0.0,73.0,1.0,3.0,4.0
+Mexico City Diablos,MEX,Sam Goff Jr.,TE,Unicorn TE,31,A,-0.0370103813994521,0.0,0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
+Mexico City Diablos,MEX,Tyson Bolt,TE,Unicorn TE,26,B,0.0489785752022553,27.200000000000003,2,0.0,0.0,0.0,0.0,0.0,122.0,1.0,9.0,10.0
+Mexico City Diablos,MEX,Mexico City Diablos Defense,DEF,Blitz Heavy,0,C,-0.0104169285340838,-2.0,1,0.0,0.0,1.0,0.0,0.0,0.0,0.0,0.0,0.0
+Paris Musketeers,PAR,CJ Murray,QB,Gunslinger,35,C,0.1326614532527178,27.08,2,477.0,2.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
+Paris Musketeers,PAR,CJ Allen,RB,Bell Cow RB,24,C,0.1351252394477278,2.5,2,0.0,0.0,0.0,25.0,0.0,0.0,0.0,0.0,0.0
+Paris Musketeers,PAR,Kobe Watson,RB,Home Run RB,27,C,0.0137370089554978,1.8,2,0.0,0.0,0.0,18.0,0.0,0.0,0.0,0.0,0.0
+Paris Musketeers,PAR,Gardner Wise,RB,Bell Cow RB,24,C,0.1397974286696712,12.7,2,0.0,0.0,0.0,72.0,0.0,15.0,0.0,4.0,5.0
+Paris Musketeers,PAR,Tyson Rodgers,WR,Deep Threat,29,C,0.0788609409353916,52.0,2,0.0,0.0,0.0,0.0,0.0,290.0,2.0,11.0,23.0
+Paris Musketeers,PAR,J.J. Burrow,WR,Alpha WR,31,A,0.0023072830662769,26.4,2,0.0,0.0,0.0,94.0,2.0,20.0,0.0,3.0,7.0
+Paris Musketeers,PAR,Anthony Howell,WR,Slot Machine,26,D,0.0521188141149487,12.2,2,0.0,0.0,0.0,0.0,0.0,62.0,0.0,6.0,10.0
+Paris Musketeers,PAR,Kenny Allen,WR,Alpha WR,24,A,0.0489678770876639,9.0,2,0.0,0.0,0.0,0.0,0.0,50.0,0.0,4.0,6.0
+Paris Musketeers,PAR,Kyler Levis,WR,Alpha WR,23,D,0.0151000744900393,0.0,0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
+Paris Musketeers,PAR,Tyson Levis Jr.,TE,Unicorn TE,22,C,-0.013857393952895,0.0,0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
+Paris Musketeers,PAR,Dak Murray,TE,Security TE,29,C,0.0850774373565769,11.0,2,0.0,0.0,0.0,0.0,0.0,60.0,0.0,5.0,7.0
+Paris Musketeers,PAR,Paris Musketeers Defense,DEF,Blitz Heavy,0,C,-0.0324086375111065,-2.0,1,0.0,0.0,1.0,0.0,0.0,0.0,0.0,0.0,0.0
+Boston Bricklayers,BOS,Floyd Parker,RB,Home Run RB,26,C,0.04,0.0,0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
+Boston Bricklayers,BOS,Eddie Irving,RB,Bell Cow RB,27,A,0.029,0.0,0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
+Boston Bricklayers,BOS,Byron Irving,WR,Alpha WR,25,B,0.077,0.0,0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
+Boston Bricklayers,BOS,Eddie Flynn,WR,Alpha WR,23,D,0.075,0.0,0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
+Boston Bricklayers,BOS,Freddie Evans,WR,Slot Machine,25,C,0.046,0.0,0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
+Boston Bricklayers,BOS,Terrence Hunt,TE,Unicorn TE,22,C,0.007,0.0,0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
+Chicago Crushers,CHI,Malik Underwood,RB,Home Run RB,23,B,0.009,0.0,0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
+Chicago Crushers,CHI,Floyd Adams,RB,Bell Cow RB,25,C,0.013,0.0,0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
+Chicago Crushers,CHI,Isaiah Young,WR,Alpha WR,26,D,0.025,0.0,0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
+Chicago Crushers,CHI,Willie Underwood,WR,Slot Machine,23,C,0.028,0.0,0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
+Chicago Crushers,CHI,Terrence Ingram,WR,Slot Machine,25,A,0.067,0.0,0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
+Chicago Crushers,CHI,Brandon Parker,TE,Security TE,26,A,0.056,0.0,0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
+Miami Machines,MIA,Willie Nash,RB,Home Run RB,23,C,0.049,0.0,0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
+Miami Machines,MIA,Corey Jackson,RB,Bell Cow RB,24,C,0.014,0.0,0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
+Miami Machines,MIA,Willie Ford,WR,Slot Machine,22,C,0.071,0.0,0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
+Miami Machines,MIA,Omar Hunt,WR,Slot Machine,27,C,0.021,0.0,0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
+Miami Machines,MIA,Andre Dean,WR,Deep Threat,23,A,0.039,0.0,0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
+Miami Machines,MIA,Floyd Jackson,TE,Security TE,23,C,0.034,0.0,0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
+NY Nightmares,NYN,Yannick Brooks,RB,Home Run RB,27,A,0.021,0.0,0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
+NY Nightmares,NYN,Omar Dixon,RB,Bell Cow RB,25,A,0.018,0.0,0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
+NY Nightmares,NYN,Zach Evans,WR,Slot Machine,24,C,0.039,0.0,0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
+NY Nightmares,NYN,Zach Dean,WR,Deep Threat,27,C,0.046,0.0,0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
+NY Nightmares,NYN,Willie Irving,WR,Alpha WR,25,C,0.035,0.0,0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
+NY Nightmares,NYN,Stevie Scott,TE,Security TE,23,B,0.055,0.0,0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0

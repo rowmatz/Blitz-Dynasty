@@ -1,0 +1,95 @@
+{% extends 'base.html' %}
+{% block title %}Commissioner — Blitz Dynasty{% endblock %}
+
+{% block content %}
+<h2>Commissioner Panel</h2>
+<p class="text-muted">Season {{ state.season_year }} — Phase: <strong>{{ state.phase }}</strong></p>
+
+<div class="row g-4">
+  <div class="col-md-6">
+    <div class="card">
+      <div class="card-header"><strong>Invite Codes</strong></div>
+      <div class="card-body p-0">
+        <table class="table table-dark mb-0">
+          <thead>
+            <tr><th>Code</th><th>Status</th></tr>
+          </thead>
+          <tbody>
+            {% for code in invite_codes %}
+            <tr>
+              <td><code style="color:#e94560; letter-spacing:2px;">{{ code.code }}</code></td>
+              <td>
+                {% if code.used_by_user_id %}
+                  <span class="text-success">Used by {{ code.used_by.username }}</span>
+                {% else %}
+                  <span class="text-muted">Available</span>
+                {% endif %}
+              </td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <div class="col-md-6">
+    <div class="card">
+      <div class="card-header"><strong>Registered Owners ({{ owners|length }} / 10)</strong></div>
+      <div class="card-body p-0">
+        <table class="table table-dark mb-0">
+          <thead>
+            <tr><th>Username</th><th>Team</th><th>Role</th></tr>
+          </thead>
+          <tbody>
+            {% for owner in owners %}
+            <tr>
+              <td>{{ owner.username }}</td>
+              <td>{{ owner.fantasy_team.name if owner.fantasy_team else '—' }}</td>
+              <td>
+                {% if owner.is_commissioner %}
+                  <span class="text-warning">Commissioner</span>
+                {% else %}
+                  Owner
+                {% endif %}
+              </td>
+            </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="card mt-4">
+  <div class="card-header"><strong>League Actions</strong></div>
+  <div class="card-body">
+    {% if state.phase == 'setup' %}
+      <p class="text-muted small mb-3">
+        {{ owners|length }} / 10 owners registered.
+        {% if owners|length < 10 %}You can open the draft early, or wait for all owners to join.{% endif %}
+      </p>
+      <form method="POST" action="{{ url_for('commissioner_draft_open') }}"
+            onsubmit="return confirm('Open the draft now? This cannot be undone.');">
+        <button type="submit" class="btn btn-primary me-2">Open Draft</button>
+      </form>
+    {% elif state.phase == 'draft' %}
+      <p class="text-muted small mb-2">Draft is live.</p>
+      <a href="{{ url_for('draft_room') }}" class="btn btn-primary me-2">Go to Draft Room</a>
+    {% elif state.phase == 'regular_season' %}
+      <p class="text-muted small mb-2">Week {{ state.week }} — Regular Season</p>
+      <form method="POST" action="{{ url_for('commissioner_sim') }}"
+            onsubmit="return confirm('Simulate Week {{ state.week }}? This cannot be undone.');">
+        <button type="submit" class="btn btn-primary me-2">Simulate Week {{ state.week }}</button>
+      </form>
+    {% elif state.phase == 'playoffs' %}
+      <p class="text-muted small mb-2">Week {{ state.week }} — Playoffs</p>
+      <form method="POST" action="{{ url_for('commissioner_sim') }}"
+            onsubmit="return confirm('Simulate Playoffs Week {{ state.week }}? This cannot be undone.');">
+        <button type="submit" class="btn btn-primary me-2">Simulate Playoffs Week {{ state.week }}</button>
+      </form>
+    {% endif %}
+  </div>
+</div>
+{% endblock %}

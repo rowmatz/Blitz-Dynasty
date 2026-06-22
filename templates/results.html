@@ -1,0 +1,64 @@
+{% extends 'base.html' %}
+{% block title %}Week {{ result.week_simmed }} Results — Blitz Dynasty{% endblock %}
+
+{% block content %}
+<div class="d-flex align-items-center justify-content-between mb-4">
+  <h2>Week {{ result.week_simmed }} Results</h2>
+  <a href="{{ url_for('commissioner') }}" class="btn btn-sm btn-outline-secondary">Back</a>
+</div>
+
+{% if result.fantasy_results %}
+<div class="card mb-4">
+  <div class="card-header"><strong>Fantasy Matchups</strong></div>
+  <div class="card-body p-0">
+    <table class="table table-dark mb-0">
+      <thead>
+        <tr><th>Home</th><th class="text-end">Score</th>
+            <th class="text-start">Score</th><th>Away</th></tr>
+      </thead>
+      <tbody>
+        {% for r in result.fantasy_results %}
+        <tr>
+          <td {% if r.winner == r.home %}style="color:#e94560;font-weight:700;"{% endif %}>
+            {{ r.home }}</td>
+          <td class="text-end" style="font-size:1.05rem;font-weight:700;">
+            {{ "%.2f"|format(r.home_score) }}</td>
+          <td class="text-start" style="font-size:1.05rem;font-weight:700;">
+            {{ "%.2f"|format(r.away_score) }}</td>
+          <td {% if r.winner == r.away %}style="color:#e94560;font-weight:700;"{% endif %}>
+            {{ r.away }}</td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+</div>
+{% endif %}
+
+<div class="card">
+  <div class="card-header">
+    <strong>NFL Scores</strong>
+    <span class="text-muted small ms-2">{{ result.nfl_games }} games</span>
+  </div>
+  <div class="card-body p-0">
+    <div class="row g-0">
+      {% for g in result.nfl_results %}
+      <div class="col-sm-6 col-lg-4">
+        <div style="padding:10px 16px;border-bottom:1px solid #1a1a2e;border-right:1px solid #1a1a2e;">
+          <div class="d-flex justify-content-between">
+            <span {% if g.home_score > g.away_score %}style="font-weight:700;"{% else %}class="text-muted"{% endif %}>
+              {{ g.home }}</span>
+            <strong {% if g.home_score <= g.away_score %}class="text-muted"{% endif %}>{{ g.home_score }}</strong>
+          </div>
+          <div class="d-flex justify-content-between mt-1">
+            <span {% if g.away_score > g.home_score %}style="font-weight:700;"{% else %}class="text-muted"{% endif %}>
+              {{ g.away }}</span>
+            <strong {% if g.away_score <= g.home_score %}class="text-muted"{% endif %}>{{ g.away_score }}</strong>
+          </div>
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+</div>
+{% endblock %}
