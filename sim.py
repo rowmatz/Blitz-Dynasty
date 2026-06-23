@@ -25,6 +25,7 @@ from engine import (
 )
 
 FANTASY_REGULAR_SEASON_WEEKS = 14
+NFL_TOTAL_WEEKS = 18
 
 
 # ==============================================================================
@@ -335,6 +336,8 @@ def simulate_week(state: LeagueState) -> dict:
     state.week += 1
     if state.week > FANTASY_REGULAR_SEASON_WEEKS and state.phase == 'regular_season':
         state.phase = 'playoffs'
+    elif state.week > NFL_TOTAL_WEEKS and state.phase == 'playoffs':
+        state.phase = 'offseason'
 
     db.session.commit()
 

@@ -404,8 +404,11 @@ def commissioner():
     invite_codes = InviteCode.query.all()
     owners = User.query.all()
     draft = Draft.query.order_by(Draft.id.desc()).first()
+    teams = FantasyTeam.query.order_by(
+        FantasyTeam.wins.desc(), FantasyTeam.points_for.desc()
+    ).all()
     return render_template('commissioner.html', state=state, invite_codes=invite_codes,
-                           owners=owners, draft=draft)
+                           owners=owners, draft=draft, teams=teams)
 
 
 @app.route('/commissioner/draft/open', methods=['POST'])
