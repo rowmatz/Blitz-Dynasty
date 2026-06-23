@@ -10,6 +10,43 @@ from models import (db, User, InviteCode, LeagueState, FantasyTeam, FantasyRoste
 
 BASE_DIR = os.path.abspath(os.path.dirname(__file__))
 
+# ==============================================================================
+# AGING CONSTANTS
+# ==============================================================================
+
+_PEAK_AGES        = {'QB': 28, 'RB': 26, 'WR': 27, 'TE': 29}
+_DECLINE_PER_YEAR = {'A': 0.002, 'B': 0.003, 'C': 0.005, 'D': 0.008}
+_RETIRE_RATE      = {'C': 0.10, 'D': 0.20}   # per year past prime
+_SKILL_FLOOR      = -0.10
+_HARD_RETIRE_AGE  = 42
+
+
+def _apply_aging():
+    """Age every active skill player by 1. Apply decline past peak; retire C/D players stochastically."""
+    players = (Player.query
+               .filter(Player.status == 'active', Player.position != 'DEF')
+               .all())
+    retired = []
+    for p in players:
+        p.age += 1
+        if p.age >= _HARD_RETIRE_AGE:
+            p.status = 'retired'
+            retired.append(p.name)
+            continue
+
+        peak       = _PEAK_AGES.get(p.position, 28)
+        years_past = p.age - peak
+        if years_past > 0:
+            decline       = _DECLINE_PER_YEAR.get(p.potential, 0.005)
+            p.skill_bonus = max(p.skill_bonus - decline, _SKILL_FLOOR)
+
+            rate = _RETIRE_RATE.get(p.potential)
+            if rate and random.random() < min(rate * years_past, 0.90):
+                p.status = 'retired'
+                retired.append(p.name)
+
+    return retired
+
 app = Flask(__name__)
 app.config['SECRET_KEY'] = os.environ.get('SECRET_KEY', 'dev-secret-change-in-prod')
 app.config['SQLALCHEMY_DATABASE_URI'] = f'sqlite:///{os.path.join(BASE_DIR, "blitz.db")}'
@@ -471,6 +508,29 @@ def commissioner_sim():
         return redirect(url_for('commissioner'))
 
     return render_template('results.html', result=result, state=state)
+
+
+@app.route('/commissioner/advance-season', methods=['POST'])
+@login_required
+def commissioner_advance_season():
+    if not current_user.is_commissioner:
+        return redirect(url_for('index'))
+    state = LeagueState.query.first()
+    if state.phase != 'offseason':
+        flash('Can only advance season during offseason.')
+        return redirect(url_for('commissioner'))
+
+    retired = _apply_aging()
+    db.session.commit()
+
+    if retired:
+        names = ', '.join(retired[:5])
+        if len(retired) > 5:
+            names += f' and {len(retired) - 5} more'
+        flash(f'{len(retired)} player(s) retired: {names}.')
+    else:
+        flash('Season advanced — no retirements this year.')
+    return redirect(url_for('commissioner'))
 
 
 @app.route('/results')
