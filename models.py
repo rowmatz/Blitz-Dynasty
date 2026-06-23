@@ -186,6 +186,7 @@ class FantasyRoster(db.Model):
 
 LINEUP_SLOTS = ['QB', 'RB1', 'RB2', 'WR1', 'WR2', 'TE', 'FLEX', 'SUPERFLEX',
                 'BN1', 'BN2', 'BN3', 'BN4', 'BN5', 'BN6', 'BN7', 'BN8', 'BN9']
+ROSTER_LIMIT = len(LINEUP_SLOTS)  # 17
 
 STARTER_SLOTS = ['QB', 'RB1', 'RB2', 'WR1', 'WR2', 'TE', 'FLEX', 'SUPERFLEX']
 

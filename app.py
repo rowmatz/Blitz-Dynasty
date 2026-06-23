@@ -6,7 +6,8 @@ from flask import Flask, render_template, redirect, url_for, request, flash, jso
 from flask_login import LoginManager, login_user, logout_user, login_required, current_user
 from models import (db, User, InviteCode, LeagueState, FantasyTeam, FantasyRoster,
                     Player, NflTeam, FantasySchedule, FantasyResult, FantasyLineup,
-                    Draft, DraftPick, LINEUP_SLOTS, STARTER_SLOTS, SLOT_ELIGIBILITY)
+                    Draft, DraftPick, LINEUP_SLOTS, STARTER_SLOTS, SLOT_ELIGIBILITY,
+                    ROSTER_LIMIT)
 
 BASE_DIR = os.path.abspath(os.path.dirname(__file__))
 
@@ -621,7 +622,8 @@ def my_team():
                            pending_trades=pending_trades,
                            STARTER_SLOTS=STARTER_SLOTS,
                            SLOT_ELIGIBILITY=SLOT_ELIGIBILITY,
-                           LINEUP_SLOTS=LINEUP_SLOTS)
+                           LINEUP_SLOTS=LINEUP_SLOTS,
+                           ROSTER_LIMIT=ROSTER_LIMIT)
 
 
 @app.route('/api/team/lineup', methods=['POST'])
@@ -753,6 +755,30 @@ def api_waiver_claim():
         'added': add_player.name,
         'dropped': drop_player.name,
     })
+
+
+@app.route('/api/roster/cut', methods=['POST'])
+@login_required
+def api_roster_cut():
+    state = LeagueState.query.first()
+    if state.phase != 'offseason':
+        return jsonify({'error': 'Cuts only available during offseason'}), 400
+
+    my_ft = current_user.fantasy_team
+    player_id = (request.json or {}).get('player_id')
+    if not player_id:
+        return jsonify({'error': 'player_id required'}), 400
+
+    entry = FantasyRoster.query.filter_by(
+        fantasy_team_id=my_ft.id, player_id=player_id
+    ).first()
+    if not entry:
+        return jsonify({'error': 'Player not on your roster'}), 400
+
+    player = db.session.get(Player, player_id)
+    db.session.delete(entry)
+    db.session.commit()
+    return jsonify({'ok': True, 'cut': player.name})
 
 
 # ==============================================================================

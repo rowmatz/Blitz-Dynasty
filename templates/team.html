@@ -31,8 +31,10 @@
       &mdash; {{ "%.1f"|format(team.points_for) }} pts scored</span>
   </div>
   <div class="text-end">
+    {% if state.phase != 'offseason' %}
     <a href="{{ url_for('waiver') }}" class="btn btn-sm btn-outline-secondary me-2">Waiver Wire</a>
     <a href="{{ url_for('trades') }}" class="btn btn-sm btn-outline-secondary">Trades</a>
+    {% endif %}
   </div>
 </div>
 
@@ -46,6 +48,54 @@
   {% endfor %}
 </div>
 {% endif %}
+
+{% if state.phase == 'offseason' %}
+
+{% set spots_used = roster | length %}
+{% set spots_free = ROSTER_LIMIT - spots_used %}
+<div class="card mb-3">
+  <div class="card-header d-flex justify-content-between align-items-center">
+    <strong>Offseason Roster</strong>
+    <span class="text-muted small">
+      <span id="spots-used">{{ spots_used }}</span> / {{ ROSTER_LIMIT }} spots used
+      &mdash;
+      <span id="spots-free" style="color:{% if spots_free > 0 %}#2e7d32{% else %}#e94560{% endif %};">
+        {{ spots_free }} open
+      </span>
+    </span>
+  </div>
+  <div class="card-body p-0">
+    <table class="table table-dark table-sm mb-0" id="offseason-roster">
+      <thead>
+        <tr>
+          <th>Pos</th><th>Player</th><th>Age</th><th>Pot</th>
+          <th class="text-end">Szn Pts</th><th></th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for p in roster | sort(attribute='season_pts', reverse=True) %}
+        <tr id="row-{{ p.id }}">
+          <td><span class="badge-pos pos-{{ p.position }}">{{ p.position }}</span></td>
+          <td style="font-size:0.85rem;">{{ p.name }}
+            <span class="text-muted" style="font-size:0.75rem;">{{ p.archetype }}</span>
+          </td>
+          <td class="text-muted" style="font-size:0.82rem;">{{ p.age }}</td>
+          <td class="pot-{{ p.potential }}" style="font-size:0.82rem;">{{ p.potential }}</td>
+          <td class="text-end" style="font-size:0.82rem;">{{ "%.1f"|format(p.season_pts) }}</td>
+          <td class="text-end">
+            <button class="btn btn-sm btn-outline-danger cut-btn" data-pid="{{ p.id }}" data-name="{{ p.name }}">
+              Cut
+            </button>
+          </td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+</div>
+<p class="text-muted small">Cut players to free up roster spots before the rookie draft. Cut players become free agents.</p>
+
+{% else %}
 
 <div class="row g-3">
 
@@ -177,6 +227,9 @@
 
   </div>
 </div>
+
+{% endif %}{# end offseason else #}
+
 {% endblock %}
 
 {% block scripts %}
@@ -213,4 +266,37 @@ document.getElementById('save-lineup-btn').addEventListener('click', async () =>
   }
 });
 </script>
+
+{% if state.phase == 'offseason' %}
+<script>
+document.querySelectorAll('.cut-btn').forEach(btn => {
+  btn.addEventListener('click', async () => {
+    const pid  = parseInt(btn.dataset.pid);
+    const name = btn.dataset.name;
+    if (!confirm(`Cut ${name}? They will become a free agent.`)) return;
+
+    btn.disabled = true;
+    const r = await fetch('/api/roster/cut', {
+      method: 'POST',
+      headers: {'Content-Type': 'application/json'},
+      body: JSON.stringify({player_id: pid}),
+    });
+    const data = await r.json();
+    if (r.ok) {
+      document.getElementById(`row-${pid}`).remove();
+      const used = document.getElementById('spots-used');
+      const free = document.getElementById('spots-free');
+      const newUsed = parseInt(used.textContent) - 1;
+      const newFree = parseInt(free.textContent) + 1;
+      used.textContent = newUsed;
+      free.textContent = newFree;
+      free.style.color = newFree > 0 ? '#2e7d32' : '#e94560';
+    } else {
+      alert(data.error || 'Cut failed.');
+      btn.disabled = false;
+    }
+  });
+});
+</script>
+{% endif %}
 {% endblock %}
