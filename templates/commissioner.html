@@ -110,8 +110,14 @@
         </tbody>
       </table>
       <form method="POST" action="{{ url_for('commissioner_advance_season') }}"
-            onsubmit="return confirm('Age all players and trigger retirements? This cannot be undone.');">
+            onsubmit="return confirm('Age all players and trigger retirements? This cannot be undone.');"
+            class="d-inline me-2">
         <button type="submit" class="btn btn-warning">Advance Season (Age Players)</button>
+      </form>
+      <form method="POST" action="{{ url_for('commissioner_generate_rookies') }}"
+            onsubmit="return confirm('Generate this year\'s rookie class? This cannot be undone.');"
+            class="d-inline">
+        <button type="submit" class="btn btn-outline-success">Generate Rookie Class</button>
       </form>
     {% endif %}
   </div>

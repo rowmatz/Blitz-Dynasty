@@ -48,6 +48,80 @@ def _apply_aging():
 
     return retired
 
+
+# ==============================================================================
+# ROOKIE CLASS GENERATION
+# ==============================================================================
+
+_ROOKIE_FIRST = [
+    'Ace', 'Blake', 'Bray', 'Cal', 'Cole', 'Dash', 'Drew', 'Eli',
+    'Evan', 'Flynn', 'Ford', 'Gage', 'Grant', 'Hank', 'Hayes', 'Ike',
+    'Ivan', 'Jace', 'Joel', 'Kane', 'Kyle', 'Lance', 'Luca', 'Mack',
+    'Miles', 'Nash', 'Neil', 'Omar', 'Otto', 'Penn', 'Rhys', 'Reed',
+    'Sam', 'Skyler', 'Tate', 'Troy', 'Vance', 'Vic', 'Wade', 'Will',
+    'Xavier', 'Yuri', 'Zane', 'Zeke', 'Cade', 'Deon', 'Finn', 'Gio',
+    'Hugo', 'Jett', 'Kobe', 'Leo', 'Max', 'Noel', 'Rex', 'Trey',
+]
+
+_ROOKIE_LAST = [
+    'Adams', 'Allen', 'Baker', 'Brooks', 'Carter', 'Clark', 'Davis',
+    'Dean', 'Ellis', 'Evans', 'Ford', 'Fox', 'Grant', 'Green', 'Hall',
+    'Hayes', 'Hill', 'Irwin', 'James', 'Jones', 'Kent', 'King', 'Lane',
+    'Lewis', 'Mills', 'Moore', 'Nash', 'Norris', 'Olsen', 'Owen', 'Parks',
+    'Price', 'Reed', 'Rivers', 'Scott', 'Stone', 'Todd', 'Turner',
+    'Upton', 'Vega', 'Walker', 'West', 'Young', 'Zorn', 'Bell', 'Burns',
+    'Cross', 'Drake', 'Frost', 'Gray', 'Hunt', 'Knox', 'Lamb', 'Lynch',
+]
+
+_ROOKIE_ARCHETYPES = {
+    'QB': ['Gunslinger', 'Game Manager', 'Konami Code'],
+    'RB': ['Home Run RB', 'Bell Cow RB'],
+    'WR': ['Deep Threat', 'Alpha WR', 'Slot Machine'],
+    'TE': ['Security TE', 'Unicorn TE'],
+}
+
+_ROOKIE_POS_WEIGHTS   = [('QB', 0.15), ('RB', 0.30), ('WR', 0.35), ('TE', 0.20)]
+_ROOKIE_POT_CHOICES   = ['A', 'B', 'C', 'D']
+_ROOKIE_POT_WEIGHTS   = [0.05, 0.20, 0.45, 0.30]
+_ROOKIE_SKILL_RANGES  = {'A': (0.03, 0.08), 'B': (0.01, 0.04),
+                         'C': (-0.01, 0.02), 'D': (-0.04, 0.00)}
+
+
+def generate_rookie_class() -> int:
+    """Create 40–50 rookie Players (no NFL team, zero stats). Returns count created."""
+    existing = {name for (name,) in db.session.query(Player.name).all()}
+
+    positions, pos_weights = zip(*_ROOKIE_POS_WEIGHTS)
+    target  = random.randint(40, 50)
+    created = 0
+    attempts = 0
+
+    while created < target and attempts < target * 6:
+        attempts += 1
+        name = f'{random.choice(_ROOKIE_FIRST)} {random.choice(_ROOKIE_LAST)}'
+        if name in existing:
+            continue
+        existing.add(name)
+
+        pos       = random.choices(positions, weights=pos_weights)[0]
+        potential = random.choices(_ROOKIE_POT_CHOICES, weights=_ROOKIE_POT_WEIGHTS)[0]
+        lo, hi    = _ROOKIE_SKILL_RANGES[potential]
+
+        db.session.add(Player(
+            nfl_team_id=None,
+            name=name,
+            position=pos,
+            archetype=random.choice(_ROOKIE_ARCHETYPES[pos]),
+            age=random.randint(19, 22),
+            potential=potential,
+            skill_bonus=round(random.uniform(lo, hi), 3),
+            status='active',
+        ))
+        created += 1
+
+    return created
+
+
 app = Flask(__name__)
 app.config['SECRET_KEY'] = os.environ.get('SECRET_KEY', 'dev-secret-change-in-prod')
 app.config['SQLALCHEMY_DATABASE_URI'] = f'sqlite:///{os.path.join(BASE_DIR, "blitz.db")}'
@@ -531,6 +605,22 @@ def commissioner_advance_season():
         flash(f'{len(retired)} player(s) retired: {names}.')
     else:
         flash('Season advanced — no retirements this year.')
+    return redirect(url_for('commissioner'))
+
+
+@app.route('/commissioner/generate-rookies', methods=['POST'])
+@login_required
+def commissioner_generate_rookies():
+    if not current_user.is_commissioner:
+        return redirect(url_for('index'))
+    state = LeagueState.query.first()
+    if state.phase != 'offseason':
+        flash('Rookie class can only be generated during offseason.')
+        return redirect(url_for('commissioner'))
+
+    count = generate_rookie_class()
+    db.session.commit()
+    flash(f'Generated {count} rookies for the {state.season_year + 1} draft class.')
     return redirect(url_for('commissioner'))
 
 
