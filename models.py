@@ -256,10 +256,12 @@ class Draft(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     season_year = db.Column(db.Integer, nullable=False)
     status = db.Column(db.String(10), default='pending')  # pending/active/complete
-    current_pick = db.Column(db.Integer, default=1)       # 1–170
+    current_pick = db.Column(db.Integer, default=1)
     _snake_order = db.Column('snake_order', db.Text)      # JSON array of fantasy_team ids
     timer_expires_at = db.Column(db.DateTime, nullable=True)
     auto_pick_seconds = db.Column(db.Integer, default=90)
+    draft_type = db.Column(db.String(10), default='initial')  # initial / rookie
+    rounds = db.Column(db.Integer, default=17)
 
     picks = db.relationship('DraftPick', back_populates='draft', order_by='DraftPick.pick_number')
 
@@ -284,7 +286,7 @@ class Draft(db.Model):
         return order[pos_in_round]
 
     def total_picks(self):
-        return len(self.snake_order) * 17    # 17 rounds
+        return len(self.snake_order) * self.rounds
 
 
 class DraftPick(db.Model):

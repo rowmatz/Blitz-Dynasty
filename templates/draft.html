@@ -71,11 +71,27 @@
 
 {% block content %}
 
+{% if draft.draft_type == 'rookie' %}
+<div class="mb-2 d-flex align-items-center gap-2">
+  <span style="background:#1565c0;color:#fff;font-size:0.75rem;font-weight:700;
+               padding:3px 10px;border-radius:12px;letter-spacing:.5px;">ROOKIE DRAFT</span>
+  <span class="text-muted small">5 rounds · reverse standings order</span>
+</div>
+{% endif %}
+
 {% if draft.status == 'complete' %}
   <div class="text-center py-5">
     <div style="background:#1a3b1a;border:2px solid #2e7d32;border-radius:12px;padding:40px;display:inline-block;">
-      <h2 style="color:#2e7d32;">Draft Complete!</h2>
-      <p class="text-muted">All {{ draft.total_picks() }} picks are in. The season is about to begin.</p>
+      <h2 style="color:#2e7d32;">
+        {% if draft.draft_type == 'rookie' %}Rookie Draft Complete!{% else %}Draft Complete!{% endif %}
+      </h2>
+      <p class="text-muted">
+        {% if draft.draft_type == 'rookie' %}
+          All {{ draft.total_picks() }} picks are in. Undrafted prospects are now free agents.
+        {% else %}
+          All {{ draft.total_picks() }} picks are in. The season is about to begin.
+        {% endif %}
+      </p>
       <a href="{{ url_for('index') }}" class="btn btn-primary mt-2">Go to My Team</a>
     </div>
   </div>
@@ -168,7 +184,8 @@
 {% block scripts %}
 {% if draft.status != 'complete' %}
 <script>
-const MY_TEAM_ID = {{ current_user.fantasy_team.id if current_user.fantasy_team else 'null' }};
+const MY_TEAM_ID  = {{ current_user.fantasy_team.id if current_user.fantasy_team else 'null' }};
+const DRAFT_TYPE  = '{{ draft.draft_type }}';
 let selectedId   = null;
 let selectedName = null;
 let selectedPos  = null;
@@ -213,7 +230,7 @@ function updateState(d) {
 
   updateBtn();
   renderFeed(d.picks);
-  renderRoster(d.my_roster);
+  renderRoster(d.my_roster, d);
 }
 
 // ─── AVAILABLE PLAYERS ────────────────────────────────────────────────────────
@@ -293,8 +310,17 @@ function renderFeed(picks) {
     </div>`).join('');
 }
 
-function renderRoster(roster) {
-  document.getElementById('roster-count').textContent = `${roster.length}/17`;
+function renderRoster(roster, stateData) {
+  const countEl = document.getElementById('roster-count');
+  if (DRAFT_TYPE === 'rookie' && stateData && stateData.roster_spots_used != null) {
+    const used = stateData.roster_spots_used;
+    const lim  = stateData.roster_limit;
+    const free = lim - used;
+    countEl.textContent = `${used}/${lim} total`;
+    countEl.style.color = free === 0 ? '#e94560' : free <= 2 ? '#ffd700' : '';
+  } else {
+    countEl.textContent = `${roster.length}/17`;
+  }
   const el = document.getElementById('my-roster');
   if (!roster.length) { el.innerHTML = '<p class="text-muted small mb-0">No picks yet.</p>'; return; }
   el.innerHTML = roster.map(p => `

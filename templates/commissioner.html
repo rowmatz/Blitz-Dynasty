@@ -109,16 +109,26 @@
           {% endfor %}
         </tbody>
       </table>
-      <form method="POST" action="{{ url_for('commissioner_advance_season') }}"
-            onsubmit="return confirm('Age all players and trigger retirements? This cannot be undone.');"
-            class="d-inline me-2">
-        <button type="submit" class="btn btn-warning">Advance Season (Age Players)</button>
-      </form>
-      <form method="POST" action="{{ url_for('commissioner_generate_rookies') }}"
-            onsubmit="return confirm('Generate this year\'s rookie class? This cannot be undone.');"
-            class="d-inline">
-        <button type="submit" class="btn btn-outline-success">Generate Rookie Class</button>
-      </form>
+      <div class="d-flex flex-wrap gap-2 align-items-center">
+        <form method="POST" action="{{ url_for('commissioner_advance_season') }}"
+              onsubmit="return confirm('Age all players and trigger retirements? This cannot be undone.');">
+          <button type="submit" class="btn btn-warning">Advance Season (Age Players)</button>
+        </form>
+        <form method="POST" action="{{ url_for('commissioner_generate_rookies') }}"
+              onsubmit="return confirm('Generate this year\'s rookie class? This cannot be undone.');">
+          <button type="submit" class="btn btn-outline-success">Generate Rookie Class</button>
+        </form>
+        {% if draft and draft.draft_type == 'rookie' and draft.status == 'active' %}
+          <a href="{{ url_for('draft_room') }}" class="btn btn-primary">Go to Rookie Draft Room →</a>
+        {% elif rookie_count > 0 %}
+          <form method="POST" action="{{ url_for('commissioner_open_rookie_draft') }}"
+                onsubmit="return confirm('Open rookie draft in reverse standings order? This cannot be undone.');">
+            <button type="submit" class="btn btn-primary">
+              Open Rookie Draft ({{ rookie_count }} prospects)
+            </button>
+          </form>
+        {% endif %}
+      </div>
     {% endif %}
   </div>
 </div>

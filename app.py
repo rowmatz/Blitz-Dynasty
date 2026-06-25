@@ -253,7 +253,13 @@ def best_available(draft, fantasy_team_id):
 
     Targets account for FLEX (RB/WR/TE) and SUPERFLEX (QB/RB/WR/TE) slots so
     auto-picks don't over-stack one position in early rounds.
+    For rookie drafts, restricts to rookies only and respects the roster limit.
     """
+    if draft.draft_type == 'rookie':
+        roster_count = FantasyRoster.query.filter_by(fantasy_team_id=fantasy_team_id).count()
+        if roster_count >= ROSTER_LIMIT:
+            return None
+
     drafted = get_drafted_ids(draft)
     my_picks = [p for p in draft.picks if p.fantasy_team_id == fantasy_team_id]
     pos_counts = {}
@@ -270,6 +276,9 @@ def best_available(draft, fantasy_team_id):
         Player.position != 'DEF',
         Player.status == 'active',
     )
+    if draft.draft_type == 'rookie':
+        rostered = db.session.query(FantasyRoster.player_id).subquery()
+        available = available.filter(Player.nfl_team_id == None, ~Player.id.in_(rostered))
     if drafted:
         available = available.filter(~Player.id.in_(drafted))
     available = available.order_by(Player.skill_bonus.desc())
@@ -320,13 +329,28 @@ def do_pick(draft, player, auto=False):
 
 
 def _finalise_draft(draft):
-    """Set league to regular_season when draft completes."""
+    """Transition phase when a draft completes."""
     state = LeagueState.query.first()
-    state.phase = 'regular_season'
+    if draft.draft_type == 'initial':
+        state.phase = 'regular_season'
+    # Rookie draft: stay in offseason; Step 9 will start the new season
+
+
+def do_skip(draft):
+    """Advance past the current pick without drafting (team's roster is full)."""
+    total = draft.total_picks()
+    if draft.current_pick >= total:
+        draft.status = 'complete'
+        draft.timer_expires_at = None
+        _finalise_draft(draft)
+    else:
+        draft.current_pick += 1
+        draft.timer_expires_at = datetime.utcnow() + timedelta(seconds=draft.auto_pick_seconds)
+    db.session.commit()
 
 
 def check_auto_pick(draft):
-    """If the timer has expired, auto-pick for the team on the clock."""
+    """If the timer has expired, auto-pick (or skip if roster full) for the team on the clock."""
     if (draft.status == 'active'
             and draft.timer_expires_at
             and datetime.utcnow() > draft.timer_expires_at):
@@ -334,6 +358,9 @@ def check_auto_pick(draft):
         player = best_available(draft, team_id)
         if player:
             do_pick(draft, player, auto=True)
+            return True
+        if draft.draft_type == 'rookie':
+            do_skip(draft)
             return True
     return False
 
@@ -373,14 +400,16 @@ def draft_state_json(draft, my_team_id):
     } for p in sorted(my_picks, key=lambda x: x.pick_number)]
 
     n = len(draft.snake_order)
-    round_num = ((draft.current_pick - 1) // n) + 1 if draft.status == 'active' else 17
+    round_num    = ((draft.current_pick - 1) // n) + 1 if draft.status == 'active' else draft.rounds
     pick_in_round = ((draft.current_pick - 1) % n) + 1 if draft.status == 'active' else n
 
-    return {
+    state_data = {
         'status': draft.status,
+        'draft_type': draft.draft_type,
         'current_pick': draft.current_pick,
         'total_picks': draft.total_picks(),
         'round': round_num,
+        'rounds': draft.rounds,
         'pick_in_round': pick_in_round,
         'on_clock_team_id': on_clock_id,
         'on_clock_team_name': on_clock_team.name if on_clock_team else None,
@@ -390,6 +419,11 @@ def draft_state_json(draft, my_team_id):
         'picks': picks_data,
         'my_roster': roster_data,
     }
+    if draft.draft_type == 'rookie' and my_team_id:
+        state_data['roster_spots_used'] = FantasyRoster.query.filter_by(
+            fantasy_team_id=my_team_id).count()
+        state_data['roster_limit'] = ROSTER_LIMIT
+    return state_data
 
 
 # ==============================================================================
@@ -438,6 +472,9 @@ def api_draft_available():
         Player.position != 'DEF',
         Player.status == 'active',
     )
+    if draft.draft_type == 'rookie':
+        rostered = db.session.query(FantasyRoster.player_id).subquery()
+        query = query.filter(Player.nfl_team_id == None, ~Player.id.in_(rostered))
     if drafted:
         query = query.filter(~Player.id.in_(drafted))
     if pos_filter and pos_filter in ('QB', 'RB', 'WR', 'TE'):
@@ -477,6 +514,15 @@ def api_draft_pick():
         return jsonify({'error': 'Invalid player'}), 400
     if player_id in get_drafted_ids(draft):
         return jsonify({'error': 'Player already drafted'}), 400
+
+    if draft.draft_type == 'rookie':
+        roster_count = FantasyRoster.query.filter_by(fantasy_team_id=my_team.id).count()
+        if roster_count >= ROSTER_LIMIT:
+            return jsonify({'error': f'Roster full ({ROSTER_LIMIT}/{ROSTER_LIMIT}) — cut a player first'}), 400
+        if player.nfl_team_id is not None:
+            return jsonify({'error': 'Only rookies can be drafted in the rookie draft'}), 400
+        if FantasyRoster.query.filter_by(player_id=player_id).first():
+            return jsonify({'error': 'Player is already on a roster'}), 400
 
     do_pick(draft, player)
     return jsonify({'ok': True})
@@ -519,8 +565,14 @@ def commissioner():
     teams = FantasyTeam.query.order_by(
         FantasyTeam.wins.desc(), FantasyTeam.points_for.desc()
     ).all()
+    rostered = db.session.query(FantasyRoster.player_id).subquery()
+    rookie_count = (Player.query
+                    .filter(Player.nfl_team_id == None, Player.status == 'active')
+                    .filter(~Player.id.in_(rostered))
+                    .count())
     return render_template('commissioner.html', state=state, invite_codes=invite_codes,
-                           owners=owners, draft=draft, teams=teams)
+                           owners=owners, draft=draft, teams=teams,
+                           rookie_count=rookie_count)
 
 
 @app.route('/commissioner/draft/open', methods=['POST'])
@@ -622,6 +674,46 @@ def commissioner_generate_rookies():
     db.session.commit()
     flash(f'Generated {count} rookies for the {state.season_year + 1} draft class.')
     return redirect(url_for('commissioner'))
+
+
+@app.route('/commissioner/rookie-draft/open', methods=['POST'])
+@login_required
+def commissioner_open_rookie_draft():
+    if not current_user.is_commissioner:
+        return redirect(url_for('index'))
+    state = LeagueState.query.first()
+    if state.phase != 'offseason':
+        flash('Rookie draft can only be opened during offseason.')
+        return redirect(url_for('commissioner'))
+
+    existing = Draft.query.filter_by(draft_type='rookie', status='active').first()
+    if existing:
+        flash('A rookie draft is already active.')
+        return redirect(url_for('draft_room'))
+
+    # Reverse standings: worst record picks first
+    teams = FantasyTeam.query.order_by(
+        FantasyTeam.wins.asc(), FantasyTeam.points_for.asc()
+    ).all()
+    if len(teams) < 2:
+        flash('Need at least 2 teams to open the rookie draft.')
+        return redirect(url_for('commissioner'))
+
+    draft = Draft(
+        season_year=state.season_year,
+        status='active',
+        current_pick=1,
+        auto_pick_seconds=90,
+        draft_type='rookie',
+        rounds=5,
+    )
+    draft.snake_order = [t.id for t in teams]
+    draft.timer_expires_at = datetime.utcnow() + timedelta(seconds=90)
+    db.session.add(draft)
+    db.session.commit()
+
+    flash('Rookie draft is open — 5 rounds, reverse standings order.')
+    return redirect(url_for('draft_room'))
 
 
 @app.route('/results')
